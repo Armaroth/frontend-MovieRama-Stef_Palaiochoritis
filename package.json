@@ -4,7 +4,8 @@
   "description": "This is a repository for a \"MovieRama\" app that was given as an assesment from Workable",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "http-server ./"
   },
   "author": "",
   "license": "ISC"

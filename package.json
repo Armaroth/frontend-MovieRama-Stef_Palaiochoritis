@@ -1,0 +1,11 @@
+{
+  "name": "frontend-movierama-stef_palaiochoritis",
+  "version": "1.0.0",
+  "description": "This is a repository for a \"MovieRama\" app that was given as an assesment from Workable",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

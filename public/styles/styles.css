@@ -15,7 +15,6 @@ body {
 }
 .image-container {
   border: 1px solid rgb(166, 166, 33);
-  /* box-sizing: border-box; */
   height: 300px;
   width: 200px;
 }
@@ -30,9 +29,6 @@ img {
 }
 
 .movie-data {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
   margin-left: 20px;
   width: 500px;
   h3 {
@@ -48,4 +44,11 @@ img {
 }
 .overview {
   color: rgb(216, 215, 138);
+}
+
+#loading-screen {
+  h1 {
+    font-size: 50px;
+  }
+  color: yellow;
 }

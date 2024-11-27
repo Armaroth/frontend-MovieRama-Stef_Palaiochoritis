@@ -1,4 +1,4 @@
-import * as v from '../../../node_modules/valibot/dist/index.js'
+import * as v from 'valibot'
 import { genres } from './tmdb-api.js';
 export const MovieSchema = v.pipe(
     v.object({

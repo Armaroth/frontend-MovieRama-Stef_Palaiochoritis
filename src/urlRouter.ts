@@ -1,4 +1,4 @@
-import { fetchMovies } from "./api/tmdb-api.js";
+import { renderInTheatersPage } from "./utils/inTheaters.js";
 
 declare global {
     interface Window {
@@ -73,7 +73,7 @@ async function urlLocationHandler() {
         document.title = route.title;
         document.querySelector('meta[name="description"]')?.setAttribute('content', route.description)
     };
-    fetchMovies();
+    renderInTheatersPage();
 }
 window.onpopstate = urlLocationHandler;
 window.urlRoute = urlRoute;

@@ -6,11 +6,18 @@ declare global {
     }
 }
 
+
+// load page
+// -> fetch movies
+// -> innerHtml + attachEventListeners
+
+// cla ss="movie"
+// const movies = document.querySelector('.movies');
+// movies.addEventListener('click', ....);
 type RouteKeys = keyof typeof urlRoutes;
 const urlPageTitle = "JS Single Page Application Router";
 document.addEventListener('click', (e: MouseEvent) => {
     e.preventDefault();
-    console.log('test');
     const target = e.target as Element
     if (!target.matches('nav a')) return;
     urlRoute(e);
@@ -48,8 +55,11 @@ function urlRoute(event: MouseEvent) {
     urlLocationHandler();
 }
 
+// function renderSearch(el) {
+//     el.innerHTML = '<h1>search</h1>';
+// }
+
 async function urlLocationHandler() {
-    // console.log('sdef')
     let location = window.location.pathname;
 
     if (location.length === 0) location = '/';

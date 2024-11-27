@@ -9,6 +9,7 @@ export const MovieSchema = v.pipe(v.object({
     overview: v.string(),
     poster_path: v.string(),
     vote_average: v.number(),
+    release_date: v.string()
 }), v.transform((o) => ({
     title: o.title,
     backdropPath: o.backdrop_path,
@@ -21,6 +22,7 @@ export const MovieSchema = v.pipe(v.object({
     overview: o.overview,
     posterPath: o.poster_path,
     voteAverage: o.vote_average,
+    releaseDate: o.release_date
 })));
 export const MoviesSchema = v.array(MovieSchema);
 export const genresSchema = v.array(v.object({

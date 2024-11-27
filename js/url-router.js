@@ -19,22 +19,22 @@ document.addEventListener('click', (e) => {
 });
 const urlRoutes = {
     404: {
-        template: '/templates/404.html',
+        template: '/page/templates/404.html',
         title: "404 | " + urlPageTitle,
         description: "Page not found",
     },
     '/': {
-        template: '/templates/index.html',
+        template: '/page/templates/index.html',
         title: "Home | " + urlPageTitle,
         description: ''
     },
     '/search': {
-        template: '/templates/search.html',
+        template: '/page/templates/search.html',
         title: 'Search | ' + urlPageTitle,
         description: ''
     },
     '/genre': {
-        template: '/templates/genre.html',
+        template: '/page/templates/genre.html',
         title: 'Genre | ' + urlPageTitle,
         description: ''
     },

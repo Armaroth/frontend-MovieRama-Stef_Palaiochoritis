@@ -4,11 +4,9 @@ import path from 'path';
 const __filename = new URL(import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
 const server = http.createServer((req, res) => {
-    // Base directory is one level up from the `server` folder
-    const baseDir = path.resolve(__dirname, '../');
+    const baseDir = path.resolve(__dirname, '../../');
     const filePath = req.url === '/' ? path.join(baseDir, './page/index.html') : path.join(baseDir, req.url || '');
     const extname = path.extname(filePath);
-    // Content-Type map for different file types
     const contentTypeMap = {
         '.html': 'text/html',
         '.js': 'application/javascript',
@@ -18,13 +16,10 @@ const server = http.createServer((req, res) => {
         '.jpg': 'image/jpeg',
         '.gif': 'image/gif',
     };
-    // Determine the correct Content-Type for the requested file
     const contentType = contentTypeMap[extname] || 'text/plain';
-    // Read and serve the requested file
     fs.readFile(filePath, (err, content) => {
         if (err) {
             if (err.code === 'ENOENT') {
-                // If file is not found, serve the index.html for SPA routing
                 fs.readFile(path.join(baseDir, './page/index.html'), (error, indexContent) => {
                     if (error) {
                         res.writeHead(500);
@@ -36,13 +31,11 @@ const server = http.createServer((req, res) => {
                 });
             }
             else {
-                // Handle other server errors
                 res.writeHead(500);
                 res.end(`500 - Internal Server Error: ${err.code}`);
             }
         }
         else {
-            // If file is found, serve it with the correct content type
             res.writeHead(200, { 'Content-Type': contentType });
             res.end(content, 'utf-8');
         }

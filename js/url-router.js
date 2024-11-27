@@ -1,13 +1,4 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+import { fetchMovies } from "./api/tmdb-api.js";
 const urlPageTitle = "JS Single Page Application Router";
 document.addEventListener('click', (e) => {
     e.preventDefault();
@@ -46,24 +37,22 @@ function urlRoute(event) {
     window.history.pushState({}, '', target.href);
     urlLocationHandler();
 }
-function urlLocationHandler() {
-    return __awaiter(this, void 0, void 0, function* () {
-        var _a;
-        // console.log('sdef')
-        let location = window.location.pathname;
-        if (location.length === 0)
-            location = '/';
-        const route = urlRoutes[location] || urlRoutes[404];
-        const html = yield fetch(route.template)
-            .then(response => response.text());
-        const content = document.getElementById('content');
-        if (content) {
-            content.innerHTML = html;
-            document.title = route.title;
-            (_a = document.querySelector('meta[name="description"]')) === null || _a === void 0 ? void 0 : _a.setAttribute('content', route.description);
-        }
-        ;
-    });
+async function urlLocationHandler() {
+    // console.log('sdef')
+    let location = window.location.pathname;
+    if (location.length === 0)
+        location = '/';
+    const route = urlRoutes[location] || urlRoutes[404];
+    const html = await fetch(route.template)
+        .then(response => response.text());
+    const content = document.getElementById('content');
+    if (content) {
+        content.innerHTML = html;
+        document.title = route.title;
+        document.querySelector('meta[name="description"]')?.setAttribute('content', route.description);
+    }
+    ;
+    fetchMovies();
 }
 window.onpopstate = urlLocationHandler;
 window.urlRoute = urlRoute;

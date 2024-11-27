@@ -1,3 +1,11 @@
+import { fetchMovies } from "./api/tmdb-api.js";
+
+declare global {
+    interface Window {
+        urlRoute: (event: MouseEvent) => void;
+    }
+}
+
 type RouteKeys = keyof typeof urlRoutes;
 const urlPageTitle = "JS Single Page Application Router";
 document.addEventListener('click', (e: MouseEvent) => {
@@ -55,7 +63,7 @@ async function urlLocationHandler() {
         document.title = route.title;
         document.querySelector('meta[name="description"]')?.setAttribute('content', route.description)
     };
-
+    fetchMovies();
 }
 window.onpopstate = urlLocationHandler;
 window.urlRoute = urlRoute;

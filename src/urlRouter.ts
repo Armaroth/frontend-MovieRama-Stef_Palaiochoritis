@@ -6,7 +6,6 @@ declare global {
     }
 }
 
-
 // load page
 // -> fetch movies
 // -> innerHtml + attachEventListeners
@@ -20,6 +19,8 @@ document.addEventListener('click', (e: MouseEvent) => {
     e.preventDefault();
     const target = e.target as Element
     if (!target.matches('nav a')) return;
+    document.querySelectorAll('a').forEach(a => a.classList.remove('active'))
+    target.classList.add('active')
     urlRoute(e);
 });
 const urlRoutes = {

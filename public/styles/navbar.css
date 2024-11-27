@@ -1,0 +1,25 @@
+.navigation {
+  position: fixed;
+  background-color: black;
+  width: 1000px;
+  border: 1px solid yellow;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    outline: none;
+  }
+
+  a:hover {
+    color: rgb(217, 217, 165);
+  }
+  a.active {
+    color: rgb(187, 147, 36) !important;
+  }
+}

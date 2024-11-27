@@ -1,0 +1,40 @@
+.movie-list {
+  margin-top: 50px;
+}
+.movie-card {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.image-container {
+  cursor: pointer;
+  border: 1px solid rgb(166, 166, 33);
+  height: 300px;
+  width: 200px;
+  transition: transform 0.4s ease-in-out;
+}
+.image-container:hover {
+  transform: translate(0, -5px);
+}
+img {
+  height: inherit;
+  width: inherit;
+}
+
+.movie-data {
+  margin-left: 20px;
+  width: 500px;
+  h3 {
+    text-align: center;
+    color: rgb(197, 197, 31);
+  }
+}
+.attribute {
+  color: gray;
+}
+.value {
+  color: rgb(197, 197, 31);
+}
+.overview {
+  color: rgb(216, 215, 138);
+}

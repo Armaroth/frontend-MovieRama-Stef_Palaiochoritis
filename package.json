@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "frontend-movierama-stef_palaiochoritis",
   "version": "1.0.0",
   "description": "This is a repository for a \"MovieRama\" app that was given as an assesment from Workable",

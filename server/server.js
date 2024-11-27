@@ -1,16 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const http_1 = __importDefault(require("http"));
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
-const server = http_1.default.createServer((req, res) => {
+import http from 'http';
+import fs from 'fs';
+import path from 'path';
+const __filename = new URL(import.meta.url).pathname;
+const __dirname = path.dirname(__filename);
+const server = http.createServer((req, res) => {
     // Base directory is one level up from the `server` folder
-    const baseDir = path_1.default.resolve(__dirname, '../');
-    const filePath = req.url === '/' ? path_1.default.join(baseDir, './page/index.html') : path_1.default.join(baseDir, req.url || '');
-    const extname = path_1.default.extname(filePath);
+    const baseDir = path.resolve(__dirname, '../');
+    const filePath = req.url === '/' ? path.join(baseDir, './page/index.html') : path.join(baseDir, req.url || '');
+    const extname = path.extname(filePath);
     // Content-Type map for different file types
     const contentTypeMap = {
         '.html': 'text/html',
@@ -24,11 +21,11 @@ const server = http_1.default.createServer((req, res) => {
     // Determine the correct Content-Type for the requested file
     const contentType = contentTypeMap[extname] || 'text/plain';
     // Read and serve the requested file
-    fs_1.default.readFile(filePath, (err, content) => {
+    fs.readFile(filePath, (err, content) => {
         if (err) {
             if (err.code === 'ENOENT') {
                 // If file is not found, serve the index.html for SPA routing
-                fs_1.default.readFile(path_1.default.join(baseDir, './page/index.html'), (error, indexContent) => {
+                fs.readFile(path.join(baseDir, './page/index.html'), (error, indexContent) => {
                     if (error) {
                         res.writeHead(500);
                         res.end('500 - Internal Server Error');

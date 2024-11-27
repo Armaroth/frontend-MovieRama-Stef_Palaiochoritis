@@ -6,11 +6,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node server/server.js"
+    "dev": "node dist/server/server.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.10.0"
+  },
+  "dependencies": {
+    "valibot": "^1.0.0-beta.8"
   }
 }

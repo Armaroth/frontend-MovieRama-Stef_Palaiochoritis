@@ -1,13 +1,20 @@
 const TMDB_API_KEY = 'bc50218d91157b1ba4f142ef7baaa6a0';
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
-// export function test() {
-//     console.log('TMDB API Key:', TMDB_API_KEY); // Ensure it's loaded correctly
-//     console.log('TMDB Base URL:', TMDB_BASE_URL);
-//     console.log('fing works');
-// }
+const genres = await (async function fetchGenres() {
+    try {
+        const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_API_KEY}`);
+        const data = await response.json();
+        const genres = data.genres;
+        return genres;
+    } catch (error) {
+        console.error('Error fetching genres:', error);
+    }
+})();
 
-// Fetch popular movies from the TMDB API
+console.log('Genres fetched:', genres);
+
+
 export async function fetchMovies() {
     try {
         const response = await fetch(`${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=1`);

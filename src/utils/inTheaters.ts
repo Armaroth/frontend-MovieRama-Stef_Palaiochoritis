@@ -1,15 +1,15 @@
 import { fetchMovies } from "../api/tmdb-api";
 import { Movies } from "../api/valibot";
 import { getContentSection, renderLoadingScreen } from "./utils";
-
+import { getCurrentPage } from "./scroll";
 export async function renderInTheatersPage() {
+  const page = getCurrentPage();
   const contentSec = getContentSection();
   renderLoadingScreen(true);
-  const movies = await fetchMovies();
+  const movies = await fetchMovies(page);
   const movieListHtml = createHtml(movies);
   renderLoadingScreen(false);
   contentSec.appendChild(movieListHtml)
-
 }
 
 function createHtml(movies: Movies): HTMLElement {

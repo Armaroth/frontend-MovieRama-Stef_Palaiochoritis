@@ -1,4 +1,5 @@
 import { renderInTheatersPage } from "./utils/inTheaters.js";
+import { handleScroll } from "./utils/scroll.js";
 
 declare global {
     interface Window {
@@ -15,6 +16,7 @@ declare global {
 // movies.addEventListener('click', ....);
 type RouteKeys = keyof typeof urlRoutes;
 const urlPageTitle = "JS Single Page Application Router";
+window.addEventListener("scroll", async () => await handleScroll());
 document.addEventListener('click', (e: MouseEvent) => {
     e.preventDefault();
     const target = e.target as Element

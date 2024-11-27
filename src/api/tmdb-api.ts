@@ -17,9 +17,9 @@ export const genres: { id: number, name: string }[] = await (async function fetc
 })();
 
 
-export async function fetchMovies(): Promise<Movies> {
+export async function fetchMovies(page: number): Promise<Movies> {
     try {
-        const response = await fetch(`${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=1`);
+        const response = await fetch(`${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${page}`);
         const data = await response.json();
         const { success, output: movies } = v.safeParse(MoviesSchema, data.results);
         if (success) {

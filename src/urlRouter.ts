@@ -1,4 +1,5 @@
 import { TMDB_API_KEY, TMDB_BASE_URL } from "./constants.js";
+import { urlRoutes } from "./route.js";
 import { renderInTheatersPage } from "./utils/inTheaters.js";
 import { handleScroll, resetPageCounter } from "./utils/scroll.js";
 import { getContentSection } from "./utils/utils.js";
@@ -30,30 +31,7 @@ document.querySelectorAll('a').forEach(a => a.addEventListener('click', (e: Mous
         .forEach(a => a.href === target.href ?
             a.classList.add('active') : a.classList.remove('active'));
     urlRoute(e);
-}))
-const urlRoutes = {
-    404: {
-        template: '/page/templates/404.html',
-        title: "404 | " + urlPageTitle,
-        description: "Page not found",
-    },
-    '/': {
-        template: '/page/templates/index.html',
-        title: "Home | " + urlPageTitle,
-        description: ''
-    },
-    '/search': {
-        template: '/page/templates/search.html',
-        title: 'Search | ' + urlPageTitle,
-        description: ''
-    },
-    '/genre': {
-        template: '/page/templates/genre.html',
-        title: 'Genre | ' + urlPageTitle,
-        description: ''
-    },
-}
-
+}));
 function urlRoute(event: MouseEvent) {
     event.preventDefault();
     event = event || window.event;
@@ -62,7 +40,6 @@ function urlRoute(event: MouseEvent) {
     window.history.pushState({}, '', target.href);
     urlLocationHandler();
 }
-
 async function urlLocationHandler() {
     let location = window.location.pathname;
     const page = resetPageCounter();

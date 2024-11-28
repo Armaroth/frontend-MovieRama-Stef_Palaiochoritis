@@ -24,7 +24,7 @@
     color: rgb(187, 147, 36) !important;
   }
 }
-.search {
+  #search {
   height: 30px;
   width: 300px;
   background-color: black;

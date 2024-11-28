@@ -8,10 +8,10 @@ export function getCurrentPage() {
     ++_currentPage;
     return _currentPage;
 }
-// export function resetPage(){
-//_currentPage=0;
-//}
-//
+export function resetPage() {
+    _currentPage = 0;
+}
+
 export async function handleScroll() {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight - 10 && !isFetching) {

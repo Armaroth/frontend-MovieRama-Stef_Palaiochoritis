@@ -1,5 +1,5 @@
 import { renderInTheatersPage } from "./utils/inTheaters.js";
-import { handleScroll } from "./utils/scroll.js";
+import { handleScroll, resetPage } from "./utils/scroll.js";
 
 declare global {
     interface Window {
@@ -17,14 +17,14 @@ declare global {
 type RouteKeys = keyof typeof urlRoutes;
 const urlPageTitle = "JS Single Page Application Router";
 window.addEventListener("scroll", async () => await handleScroll());
-document.addEventListener('click', (e: MouseEvent) => {
+document.querySelectorAll('a').forEach(a => a.addEventListener('click', (e: MouseEvent) => {
     e.preventDefault();
-    const target = e.target as Element
-    if (!target.matches('nav a')) return;
-    document.querySelectorAll('a').forEach(a => a.classList.remove('active'))
-    target.classList.add('active')
+    const target = e.target as Element;
+    resetPage();
+    document.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+    target.classList.add('active');
     urlRoute(e);
-});
+}))
 const urlRoutes = {
     404: {
         template: '/page/templates/404.html',

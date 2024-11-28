@@ -69,7 +69,7 @@ function urlRoute(event: MouseEvent) {
 
 async function urlLocationHandler() {
     let location = window.location.pathname;
-
+    const page = resetPageCounter();
     if (location.length === 0) location = '/';
 
     const route = urlRoutes[location as RouteKeys] || urlRoutes[404];
@@ -81,7 +81,7 @@ async function urlLocationHandler() {
         document.title = route.title;
         document.querySelector('meta[name="description"]')?.setAttribute('content', route.description)
     };
-    renderInTheatersPage(`${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${1}`);
+    renderInTheatersPage(`${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${page}`);
 }
 window.onpopstate = urlLocationHandler;
 window.urlRoute = urlRoute;

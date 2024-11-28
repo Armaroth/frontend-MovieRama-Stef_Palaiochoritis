@@ -10,7 +10,9 @@ export function getCurrentPage() {
     return _currentPage;
 }
 export function resetPageCounter() {
-    _currentPage = 0;
+    _currentPage = 1;
+    return _currentPage;
+
 }
 
 export async function handleScroll() {
@@ -20,7 +22,7 @@ export async function handleScroll() {
         const page = getCurrentPage();
         const query = input.value.trim()
         const endpoint = query ?
-            `${TMDB_BASE_URL}search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&page=${page}` :
+            `${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&page=${page}` :
             `${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${page}`
         isFetching = true;
         await renderInTheatersPage(endpoint);

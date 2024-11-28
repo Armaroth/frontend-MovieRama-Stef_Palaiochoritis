@@ -1,7 +1,6 @@
 import { Movies, MoviesSchema } from "./valibot.js";
 import * as v from '../../node_modules/valibot/dist/index.js'
-const TMDB_API_KEY = 'bc50218d91157b1ba4f142ef7baaa6a0';
-const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+import { TMDB_API_KEY, TMDB_BASE_URL } from "../constants.js";
 
 
 /// implement parsing with valibot
@@ -17,9 +16,9 @@ export const genres: { id: number, name: string }[] = await (async function fetc
 })();
 
 
-export async function fetchMovies(page: number): Promise<Movies> {
+export async function fetchMovies(endpoint: string): Promise<Movies> {
     try {
-        const response = await fetch(`${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${page}`);
+        const response = await fetch(endpoint);
         const data = await response.json();
         const { success, output: movies } = v.safeParse(MoviesSchema, data.results);
         if (success) {

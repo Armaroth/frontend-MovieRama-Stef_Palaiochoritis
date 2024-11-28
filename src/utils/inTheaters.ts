@@ -2,11 +2,11 @@ import { fetchMovies } from "../api/tmdb-api";
 import { Movies } from "../api/valibot";
 import { getContentSection, renderLoadingScreen } from "./utils";
 import { getCurrentPage } from "./scroll";
-export async function renderInTheatersPage() {
-  const page = getCurrentPage();
+import { TMDB_API_KEY, TMDB_BASE_URL } from "../constants";
+export async function renderInTheatersPage(endpoint: string) {
   const contentSec = getContentSection();
   renderLoadingScreen(true);
-  const movies = await fetchMovies(page);
+  const movies = await fetchMovies(endpoint);
   const movieListHtml = createHtml(movies);
   renderLoadingScreen(false);
   contentSec.appendChild(movieListHtml)

@@ -17,12 +17,14 @@ declare global {
 type RouteKeys = keyof typeof urlRoutes;
 const urlPageTitle = "JS Single Page Application Router";
 window.addEventListener("scroll", async () => await handleScroll());
+// i should probably make the page scroll up on route change 
 document.querySelectorAll('a').forEach(a => a.addEventListener('click', (e: MouseEvent) => {
     e.preventDefault();
-    const target = e.target as Element;
+    const target = e.target as HTMLAnchorElement;
     resetPage();
-    document.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-    target.classList.add('active');
+    document.querySelectorAll('a')
+        .forEach(a => a.href === target.href ?
+            a.classList.add('active') : a.classList.remove('active'));
     urlRoute(e);
 }))
 const urlRoutes = {
@@ -53,7 +55,9 @@ const urlRoutes = {
 function urlRoute(event: MouseEvent) {
     event.preventDefault();
     event = event || window.event;
-    const target = event.target as HTMLAnchorElement;
+    let target = event.target as HTMLAnchorElement;
+    console.log(target)
+    target = target.href ? target : target.parentElement as HTMLAnchorElement;
     window.history.pushState({}, '', target.href);
     urlLocationHandler();
 }

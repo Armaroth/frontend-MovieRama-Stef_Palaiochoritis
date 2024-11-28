@@ -74,7 +74,9 @@ async function urlLocationHandler() {
     content.innerHTML = html;
     document.title = route.title;
     document.querySelector('meta[name="description"]')?.setAttribute('content', route.description);
-    renderInTheatersPage(`${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${page}`);
+    if (location == '/') {
+        renderInTheatersPage(`${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${page}`);
+    }
 }
 window.onpopstate = urlLocationHandler;
 window.urlRoute = urlRoute;

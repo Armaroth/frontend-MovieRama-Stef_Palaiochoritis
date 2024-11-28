@@ -3,7 +3,7 @@ export function getContentSection(): HTMLElement {
     if (!contentSec) throw new Error('The app is not mounted properly. Cannot find the #content section');
     return contentSec;
 }
-export function resetHtml(){
+export function resetHtml() {
     const contentHtml = getContentSection()
     contentHtml.replaceChildren();
 }
@@ -23,4 +23,13 @@ export function renderLoadingScreen(on: boolean) {
         const loadingscreen = document.getElementById('loading-screen');
         loadingscreen?.parentElement?.removeChild(loadingscreen);
     }
+}
+
+export function renderHeading(text: string) {
+    const heading = `
+  <section class="heading">
+    <h1>${text}</h1>
+        </section>
+`
+
 }

@@ -1,5 +1,6 @@
+import { TMDB_API_KEY, TMDB_BASE_URL } from "./constants.js";
 import { renderInTheatersPage } from "./utils/inTheaters.js";
-import { handleScroll, resetPage } from "./utils/scroll.js";
+import { handleScroll, resetPageCounter } from "./utils/scroll.js";
 
 declare global {
     interface Window {
@@ -21,7 +22,7 @@ window.addEventListener("scroll", async () => await handleScroll());
 document.querySelectorAll('a').forEach(a => a.addEventListener('click', (e: MouseEvent) => {
     e.preventDefault();
     const target = e.target as HTMLAnchorElement;
-    resetPage();
+    resetPageCounter();
     document.querySelectorAll('a')
         .forEach(a => a.href === target.href ?
             a.classList.add('active') : a.classList.remove('active'));
@@ -80,7 +81,7 @@ async function urlLocationHandler() {
         document.title = route.title;
         document.querySelector('meta[name="description"]')?.setAttribute('content', route.description)
     };
-    renderInTheatersPage();
+    renderInTheatersPage(`${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${1}`);
 }
 window.onpopstate = urlLocationHandler;
 window.urlRoute = urlRoute;

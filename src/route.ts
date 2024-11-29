@@ -6,7 +6,7 @@ export type RouteConfig = {
     heading: string;
     title: string;
     description: string;
-    fetch?: (page: number) => Promise<Movies>
+    fetchMovies?: (page: number) => Promise<Movies>
 };
 type UrlRoutes = {
     [key: string]: RouteConfig;
@@ -25,7 +25,7 @@ export const urlRoutes: UrlRoutes = {
         </section>`,
         title: "Home | " + urlPageTitle,
         description: '',
-        fetch: fetchNowPlaying
+        fetchMovies: fetchNowPlaying
     },
     '/search': {
         heading: `<section class="heading">
@@ -33,7 +33,7 @@ export const urlRoutes: UrlRoutes = {
         </section>`,
         title: "Search | " + urlPageTitle,
         description: '',
-        fetch: fetchSearchResults
+        fetchMovies: fetchSearchResults
         ,
     },
     '/popular': {
@@ -42,7 +42,7 @@ export const urlRoutes: UrlRoutes = {
         </section>`,
         title: "Popular | " + urlPageTitle,
         description: '',
-        fetch: fetchPopular
+        fetchMovies: fetchPopular
 
     },
 };

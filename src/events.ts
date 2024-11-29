@@ -29,8 +29,8 @@ export async function handleScroll() {
             const page = getCurrentPage();
             const route = getCurrentRoute();
             setIsFetching(true);
-            if (urlRoutes[route].fetch) {
-                const movies = await urlRoutes[route].fetch(page);
+            if (urlRoutes[route].fetchMovies) {
+                const movies = await urlRoutes[route].fetchMovies(page);
                 if (!movies.length) {
                     return;
                 }

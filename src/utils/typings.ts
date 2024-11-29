@@ -1,6 +1,6 @@
 import { InferOutput } from 'valibot';
 import { genresSchema, MovieSchema } from "../api/valibot";
-import { urlRoutes } from "../route";
+import { urlRoutes } from "./route";
 export type RouteKeys = keyof typeof urlRoutes;
 export type RouteConfig = {
     heading: string;

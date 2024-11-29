@@ -1,6 +1,6 @@
 const urlPageTitle = "JS Single Page Application Router";
-import { fetchNowPlaying, fetchPopular, fetchSearchResults } from "./api/tmdb-api";
-import { UrlRoutes } from "./utils/typings";
+import { fetchNowPlaying, fetchPopular, fetchSearchResults } from "../api/tmdb-api";
+import { UrlRoutes } from "./typings";
 export const urlRoutes: UrlRoutes = {
     404: {
         heading: `<section class="heading">

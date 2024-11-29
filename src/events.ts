@@ -1,4 +1,4 @@
-import { urlRoutes } from "./route";
+import { urlRoutes } from "./utils/route";
 import { getCurrentPage, getCurrentRoute, getIsFetching, setCurrentRoute, setIsFetching } from "./state";
 import { navigateTo } from "./urlRouter";
 import { loadMoviesPage, resetHtml } from "./utils/utils";

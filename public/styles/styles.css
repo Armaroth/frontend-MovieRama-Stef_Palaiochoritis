@@ -5,15 +5,23 @@ body {
   background-color: black;
   color: white;
 }
+#header {
+  margin-top: 100px;
+}
+h2 {
+  font-size: 40px;
+  color: rgb(197, 197, 31);
+  text-align: center;
+}
+h3 {
+  font-size: 30px;
+  color: rgb(197, 197, 31);
+}
 .heading {
   margin-top: 100px;
   text-align: center;
   h1 {
     font-size: 50px;
-    color: rgb(197, 197, 31);
-  }
-  h2 {
-    font-size: 40px;
     color: rgb(197, 197, 31);
   }
 }
@@ -25,9 +33,4 @@ body {
 }
 #loading-screen {
   margin-top: 40px;
-  h1 {
-    text-align: center;
-    font-size: 50px;
-  }
-  color: yellow;
 }

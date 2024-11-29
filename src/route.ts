@@ -1,24 +1,48 @@
 const urlPageTitle = "JS Single Page Application Router";
-
-export const urlRoutes = {
+import { fetchNowPlaying, fetchPopular, fetchSearchResults } from "./api/tmdb-api";
+import { Movies } from "./api/valibot";
+export type RouteKeys = keyof typeof urlRoutes;
+export type RouteConfig = {
+    heading: string;
+    title: string;
+    description: string;
+    fetch?: (page: number) => Promise<Movies>
+};
+type UrlRoutes = {
+    [key: string]: RouteConfig;
+};
+export const urlRoutes: UrlRoutes = {
     404: {
-        template: '/page/templates/404.html',
+        heading: `<section class="heading">
+            <h1>Page not found:</h1>
+        </section>`,
         title: "404 | " + urlPageTitle,
         description: "Page not found",
     },
     '/': {
-        template: '/page/templates/index.html',
+        heading: `<section class="heading">
+            <h1>Now in theaters:</h1>
+        </section>`,
         title: "Home | " + urlPageTitle,
-        description: ''
+        description: '',
+        fetch: fetchNowPlaying
     },
     '/search': {
-        template: '/page/templates/search.html',
-        title: 'Search | ' + urlPageTitle,
-        description: ''
+        heading: `<section class="heading">
+            <h1>Results for: </h1>
+        </section>`,
+        title: "Search | " + urlPageTitle,
+        description: '',
+        fetch: fetchSearchResults
+        ,
     },
-    '/genre': {
-        template: '/page/templates/genre.html',
-        title: 'Genre | ' + urlPageTitle,
-        description: ''
+    '/popular': {
+        heading: `<section class="heading">
+            <h1>Popular Movies: </h1>
+        </section>`,
+        title: "Popular | " + urlPageTitle,
+        description: '',
+        fetch: fetchPopular
+
     },
-}
+};

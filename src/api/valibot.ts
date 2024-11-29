@@ -33,6 +33,3 @@ export const genresSchema = v.array(v.object({
     name: v.string()
 }))
 
-export type Genres = v.InferOutput<typeof genresSchema>;
-export type Movie = v.InferOutput<typeof MovieSchema>;
-export type Movies = Movie[];

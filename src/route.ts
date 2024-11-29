@@ -1,16 +1,6 @@
 const urlPageTitle = "JS Single Page Application Router";
 import { fetchNowPlaying, fetchPopular, fetchSearchResults } from "./api/tmdb-api";
-import { Movies } from "./api/valibot";
-export type RouteKeys = keyof typeof urlRoutes;
-export type RouteConfig = {
-    heading: string;
-    title: string;
-    description: string;
-    fetchMovies?: (page: number) => Promise<Movies>
-};
-type UrlRoutes = {
-    [key: string]: RouteConfig;
-};
+import { UrlRoutes } from "./utils/typings";
 export const urlRoutes: UrlRoutes = {
     404: {
         heading: `<section class="heading">
@@ -43,6 +33,5 @@ export const urlRoutes: UrlRoutes = {
         title: "Popular | " + urlPageTitle,
         description: '',
         fetchMovies: fetchPopular
-
     },
 };

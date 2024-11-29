@@ -1,5 +1,5 @@
-import { Movies } from "../api/valibot";
-import { RouteConfig, RouteKeys, urlRoutes } from "../route";
+import { Movies } from "./typings";
+
 export function getContentSection(): HTMLElement {
   const contentSec = document.getElementById('content');
   if (!contentSec) throw new Error('The app is not mounted properly. Cannot find the #content section');

@@ -1,9 +1,4 @@
-
-type AppState = {
-    _currentPage: number
-    _isFetching: boolean
-    _currentRoute: string | 404
-}
+import { AppState } from "./utils/typings";
 const appState: AppState = {
     _currentPage: 1,
     _isFetching: false,

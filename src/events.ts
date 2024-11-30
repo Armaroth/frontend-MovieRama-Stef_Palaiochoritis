@@ -7,7 +7,8 @@ let debounceTimeout: ReturnType<typeof setTimeout>;
 searchInput.addEventListener('input', (event: Event) => {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(async () => {
-        if (!searchInput.value.trim()) return
+        const route = getCurrentRoute();
+        if (!searchInput.value.trim() && route !== '/search') return;
         resetHtml();
         scrollTo(0, 0);
         if (searchInput.value) {
@@ -15,8 +16,10 @@ searchInput.addEventListener('input', (event: Event) => {
             navigateTo('/search');
         }
         else {
-            setCurrentRoute('/');
-            navigateTo('/');
+            if (route !== '/') {
+                setCurrentRoute('/');
+                navigateTo('/');
+            }
         }
     }, 300);
 });

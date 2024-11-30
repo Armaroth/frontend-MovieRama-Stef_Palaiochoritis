@@ -73,3 +73,17 @@ export async function fetchPopular(page: number): Promise<Movies> {
         renderLoadingScreen(false);
     }
 }
+
+export async function fetchModalInfo(movieId: number): Promise<Movies> {
+    try {
+        const response = await fetch(`${TMDB_BASE_URL}/movie/${movieId}?api_key=${TMDB_API_KEY}&append_to_response=videos,reviews,similar`);
+        const data = await response.json();
+        const { success, output: movies } = v.safeParse(MoviesSchema, data.results);
+        if (success) {
+            return movies;
+        }
+        return [];  
+    } catch (error) {
+        throw new Error('Error fetching data from TMDB:');
+    }
+}

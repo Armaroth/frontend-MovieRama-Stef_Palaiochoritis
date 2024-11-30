@@ -1,5 +1,8 @@
+import { TMDB_API_KEY, TMDB_BASE_URL } from "../api/constants";
+import { ModalMovieSchema } from "../api/valibot";
 import { Movies } from "./typings";
-
+import { safeParse } from 'valibot'
+import { createMovieList, showModal, createModal } from "./views";
 export function getContentSection(): HTMLElement {
   const contentSec = document.getElementById('content');
   if (!contentSec) throw new Error('The app is not mounted properly. Cannot find the #content section');
@@ -20,51 +23,12 @@ export async function loadMoviesPage(movies: Movies) {
   const contentSection = getContentSection();
   const movieListHtml = createMovieList(movies);
   contentSection.appendChild(movieListHtml);
+  await addModalEvent(movies, movieListHtml);
 }
 
 export function resetHtml() {
   const contentSec = getContentSection();
   contentSec.replaceChildren();
-}
-export function createMovieList(movies: Movies): HTMLElement {
-  const fragment = document.createDocumentFragment();
-  const movieListHtml = document.createElement('section');
-  movieListHtml.className = 'movie-list';
-  if (movies.length === 0) {
-    movieListHtml.innerHTML = `
-    <h3>
-    Cannot find the movie you are looking for
-    </h3>
-    `
-  }
-  movies.forEach(movie => {
-    const movieCard = document.createElement('section');
-    movieCard.className = 'movie-card';
-    movieCard.innerHTML = `
-    <section class="image-container">
-    <img src="https://image.tmdb.org/t/p/w500/${movie.posterPath}" alt="${movie.title}" />
-    </section>
-    <section class="movie-data">
-    <h3>${movie.title}</h3>
-    <p class="overview">${movie.overview ? movie.overview : 'No overview available'}</p>
-    <section class="movie-date"> 
-    <span class="attribute">Year:</span>
-    <span class="value">${movie.releaseDate.split('-')[0]}</span>
-    </section>
-    <section>
-    <span class="attribute">Genres:</span>
-    <span class="value">${movie.genres.map(genre => genre?.name).join(', ')}</span>
-    </section>
-    <section>
-    <span class="attribute">Vote average:</span>
-    <span class="value">${movie.voteAverage.toFixed(1)}</span>
-    </section>
-    </section>
-    `;
-    fragment.appendChild(movieCard);
-  });
-  movieListHtml.appendChild(fragment);
-  return movieListHtml;
 }
 export function renderLoadingScreen(on: boolean) {
   const contentSec = getContentSection();
@@ -80,4 +44,24 @@ export function renderLoadingScreen(on: boolean) {
     const loadingscreen = document.getElementById('loading-screen');
     loadingscreen?.parentElement?.removeChild(loadingscreen);
   }
+}
+async function addModalEvent(movies: Movies, container: HTMLElement) {
+  const buttons = container.querySelectorAll('button');
+  const imgs = container.querySelectorAll('img');
+  buttons.forEach(async (button, key) => {
+    const modalInfo = await fetch(`${TMDB_BASE_URL}/movie/${movies[key].id}?api_key=${TMDB_API_KEY}&append_to_response=videos,reviews,similar`).
+      then(data => data.json());
+    const { output, success } = safeParse(ModalMovieSchema, modalInfo)
+    if (!success) {
+      if (button.parentElement) button.parentElement.innerHTML = '<h1 class="no-info">No additional info</h1>'
+    } else {
+      const modal = createModal(output)
+      button.addEventListener('click', () => {
+        showModal(modal);
+      });
+      imgs[key].addEventListener('click', () => {
+        showModal(modal);
+      })
+    }
+  });
 }

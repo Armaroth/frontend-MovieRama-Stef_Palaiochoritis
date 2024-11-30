@@ -7,7 +7,8 @@ body {
   list-style: none;
 }
 ul {
-  list-style: none;   
+  list-style: none;
+  padding: 0;
 }
 #header {
   margin-top: 100px;

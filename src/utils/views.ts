@@ -1,5 +1,5 @@
 import { ModalMovie, Movies } from "./typings";
-import { getContentSection } from "./utils";
+import { addModalEvent, getContentSection } from "./utils";
 
 export function createMovieList(movies: Movies): HTMLElement {
     const fragment = document.createDocumentFragment();
@@ -20,8 +20,14 @@ export function createMovieList(movies: Movies): HTMLElement {
     <img src="https://image.tmdb.org/t/p/w500/${movie.posterPath}" alt="${movie.title}" />
     </section>
     <section class="movie-data">
+    <section class="movie-title">
     <h3>${movie.title}</h3>
-    <p class="overview">${movie.overview ? movie.overview : 'No overview available'}</p>
+    </section>
+    <main>
+    <section class="overview">
+    <p >${movie.overview ? movie.overview : 'No overview available'}</p>
+    </section>
+    <section class='metadata'>
     <section class="movie-date"> 
     <span class="attribute">Year:</span>
     <span class="value">${movie.releaseDate.split('-')[0]}</span>
@@ -34,6 +40,9 @@ export function createMovieList(movies: Movies): HTMLElement {
     <span class="attribute">Vote average:</span>
     <span class="value">${movie.voteAverage.toFixed(1)}</span>
     </section>
+    </section>
+
+    </main>
     <section class="button-container">
     <button class="see-more">See more</button>
     </section>
@@ -42,6 +51,7 @@ export function createMovieList(movies: Movies): HTMLElement {
         fragment.appendChild(movieCard);
     });
     movieListHtml.appendChild(fragment);
+    addModalEvent(movies, movieListHtml);
     return movieListHtml;
 }
 
@@ -55,23 +65,26 @@ export function createModal(data: ModalMovie): HTMLElement {
       <button class="modal-close">&times;</button>
       <section class="movie-data">
         <h3>${data.title}</h3>
+        <header>
+        
         <p class="overview">${data.overview ? data.overview : 'No overview available'}</p>
         <div class="additional-info">
-          <section class="movie-date">
-            <span class="attribute">Year:</span>
-            <span class="value">${data.releaseDate?.split('-')[0]}</span>
-          </section>
-          <section>
-            <span class="attribute">Genres:</span>
-            <span class="value">${data.genres.map(genre => genre?.name).join(', ')}</span>
-          </section>
-          <section>
-            <span class="attribute">Vote average:</span>
-            <span class="value">${data.voteAverage.toFixed(1)}</span>
-          </section>
+        <section class="movie-date">
+        <span class="attribute">Year:</span>
+        <span class="value">${data.releaseDate?.split('-')[0]}</span>
+        </section>
+        <section>
+        <span class="attribute">Genres:</span>
+        <span class="value">${data.genres.map(genre => genre?.name).join(', ')}</span>
+        </section>
+        <section>
+        <span class="attribute">Vote average:</span>
+        <span class="value">${data.voteAverage.toFixed(1)}</span>
+        </section>
+        </header>
 
           <h3>Trailer:</h3>
-          <div class="trailer-container">
+          <section class="trailer-container">
             ${data.videos?.length
             ? `<iframe 
                   class="trailer-player"
@@ -81,7 +94,7 @@ export function createModal(data: ModalMovie): HTMLElement {
                 </iframe>`
             : '<p>No trailer available.</p>'
         }
-          </div>
+          </section>
 
           <h3>Similar Movies:</h3>
           <ul class="similar-movies">
@@ -96,7 +109,7 @@ export function createModal(data: ModalMovie): HTMLElement {
             .join('') || '<li>No similar movies available.</li>'}
           </ul>
           <h3>Reviews:</h3>
-          <ul>
+          <ul class="reviews">
             ${data.reviews?.map(
                 (review) =>
                     `<li><strong>${review.author}:</strong> ${review.content}</li>`

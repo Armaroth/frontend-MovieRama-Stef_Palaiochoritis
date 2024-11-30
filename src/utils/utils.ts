@@ -45,7 +45,7 @@ export function renderLoadingScreen(on: boolean) {
     loadingscreen?.parentElement?.removeChild(loadingscreen);
   }
 }
-async function addModalEvent(movies: Movies, container: HTMLElement) {
+export async function addModalEvent(movies: Movies, container: HTMLElement) {
   const buttons = container.querySelectorAll('button');
   const imgs = container.querySelectorAll('img');
   buttons.forEach(async (button, key) => {

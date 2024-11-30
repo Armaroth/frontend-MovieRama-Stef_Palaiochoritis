@@ -2,7 +2,6 @@ import { urlRoutes } from "./utils/route.js";
 import { getCurrentRoute, resetCurrentPage, setCurrentRoute } from "./state.js";
 import { RouteKeys } from "./utils/typings.js";
 import { renderHeading, renderPage, resetHtml } from "./utils/utils.js";
-// -> innerHtml + attachEventListeners
 
 document.querySelectorAll('a').forEach(a => a.addEventListener('click', (e: MouseEvent) => {
     e.preventDefault();

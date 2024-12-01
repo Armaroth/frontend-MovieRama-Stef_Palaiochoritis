@@ -1,8 +1,8 @@
 import { MoviesSchema } from "./valibot.js";
 import * as v from 'valibot'
 import { TMDB_API_KEY, TMDB_BASE_URL } from "./constants.js";
-import { renderLoadingScreen } from "../utils/utils.js";
 import { Movies } from "../utils/typings.js";
+import { renderLoadingScreen } from "../utils/views.js";
 
 export const genres: { id: number, name: string }[] = await (async function fetchGenres() {
     /// maybe implement parsing with valibot

@@ -52,6 +52,7 @@
 
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   .overview {
     max-width: fit-content;
   }
@@ -84,6 +85,7 @@
 .similar-movie-img {
   height: 160px;
   width: 130px;
+  margin-bottom: 15px;
 }
 
 .similar-movie-title {
@@ -113,7 +115,12 @@
     padding: 20px 0;
   }
 }
-
+.author {
+  color: rgb(197, 197, 31);
+}
+.review {
+  color: gray;
+}
 @media (width<=992px) {
   /* .modal {
     font-size: 14px;

@@ -23,7 +23,7 @@ export async function loadMoviesPage(movies: Movies) {
   const contentSection = getContentSection();
   const movieListHtml = createMovieList(movies);
   contentSection.appendChild(movieListHtml);
-  await addModalEvent(movies, movieListHtml);
+  await addModalEvent();
 }
 
 export function resetHtml() {
@@ -31,9 +31,9 @@ export function resetHtml() {
   contentSec.replaceChildren();
 }
 
-export async function addModalEvent(movies: Movies, container: HTMLElement) {
+export async function addModalEvent() {
   const buttons = document.querySelectorAll('.see-more');
-  buttons.forEach(async (button, key) => {
+  buttons.forEach(async (button) => {
     button.addEventListener('click', async () => {
       const movieId = button.getAttribute('data-movie-id');
       const modalInfo = await fetch(`${TMDB_BASE_URL}/movie/${movieId}?api_key=${TMDB_API_KEY}&append_to_response=videos,reviews,similar`).

@@ -6,6 +6,9 @@ body {
   color: white;
   list-style: none;
 }
+body.no-scroll {
+  overflow: hidden;
+}
 ul {
   list-style: none;
   padding: 0;
@@ -66,7 +69,6 @@ h3 {
       font-size: 25px;
     }
   }
-
 }
 
 @media (width<=425px) {

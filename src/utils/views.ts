@@ -99,10 +99,6 @@ export function createModal(movie: ModalMovie): HTMLElement {
       : '<p>No trailer available.</p>'
     }
           </section>
-
-
-
-
           <h3>Similar Movies:</h3>
           <ul class="similar-movies">
             ${movie.similarMovies
@@ -110,7 +106,7 @@ export function createModal(movie: ModalMovie): HTMLElement {
         (movie) =>
           `<li>
             <span class="similar-movie-title">${movie.title}</span>
-            <img class="similar-movie-img" src="https://image.tmdb.org/t/p/w500/${movie.posterPath}" alt="Image unavailable"/>
+            <img class="similar-movie-img"  data-movie-id="${movie.id}" src="https://image.tmdb.org/t/p/w500/${movie.posterPath}" alt="Image unavailable"/>
            </li>`
       )
       .join('') || '<li>No similar movies available.</li>'}
@@ -119,7 +115,7 @@ export function createModal(movie: ModalMovie): HTMLElement {
           <ul class="reviews">
             ${movie.reviews?.map(
         (review) =>
-          `<li><strong>${review.author}:</strong> ${review.content}</li>`
+          `<li><strong class="author">${review.author}:</strong"> <span class="review"> ${review.content}</span></li>`
       ).join('') || '<li>No reviews available.</li>'
     }
           </ul>
@@ -132,16 +128,21 @@ export function createModal(movie: ModalMovie): HTMLElement {
   const closeButton = modal.querySelector('.modal-close');
   overlay?.addEventListener('click', () => closeModal(modal));
   closeButton?.addEventListener('click', () => closeModal(modal));
+  const modalContent = modal.querySelector('.modal-content');
+  modalContent?.addEventListener('click', (e) => e.stopPropagation());
+
   return modal;
 
 }
 export function showModal(modal: HTMLElement) {
   const contentSection = getContentSection();
   contentSection.appendChild(modal);
-
+  document.body.classList.add('no-scroll');
 }
 function closeModal(modal: HTMLElement) {
   modal.remove();
+  document.body.classList.remove('no-scroll');
+
 }
 
 export function renderLoadingScreen(on: boolean) {

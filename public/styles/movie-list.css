@@ -1,11 +1,13 @@
 .movie-list {
   margin-top: 50px;
   text-align: center;
+  font-size: 16px;
 }
 .movie-card {
   display: flex;
   margin-bottom: 30px;
   text-align: center;
+  text-align: start;
 }
 .movie-card main {
   display: flex;
@@ -13,18 +15,16 @@
 }
 .overview {
   color: rgb(216, 215, 138);
-  max-width: 350px;
+  max-width: 400px;
   margin-right: 30px;
 }
-.title {
-  justify-self: flex-start;
-}
+
 .image-container {
   cursor: pointer;
   align-self: center;
   border: 1px solid rgb(166, 166, 33);
-  height: 300px;
-  width: 200px;
+  height: 400px;
+  width: 300px;
   transition: transform 0.4s ease-in-out;
 }
 .image-container:hover {
@@ -36,11 +36,12 @@ img {
 }
 
 .movie-data {
-  /* margin-left: 20px; */
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  /* margin-bottom: 10px; */
 
   h3 {
     text-align: center;
@@ -55,15 +56,15 @@ img {
 }
 
 .button-container {
-  /* width: 300px; */
   display: flex;
   justify-content: center;
 }
 .button-container button {
   cursor: pointer;
   border: 0;
-  padding: 10px 25px;
+  padding: 10px 20px;
   border-radius: 10px;
+  font-size: 16px;
 }
 button:hover {
   background-color: rgb(200, 155, 60);
@@ -71,9 +72,75 @@ button:hover {
   color: white;
 }
 
-/* .metadata {
+.metadata {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  text-align: start;
 }
- */
+
+@media (width<=992px) {
+  .movie-card {
+    font-size: 14px;
+  }
+  .movie-card main {
+    flex-direction: column;
+    /* align-items: flex-start; */
+    /* align-items: center; */
+  }
+  .image-container {
+    height: 350px;
+    width: 250px;
+  }
+  .overview {
+    margin-bottom: 5px;
+  }
+  .button-container button {
+    font-size: 14px;
+  }
+}
+
+@media (width<=768px) {
+  .movie-card {
+    font-size: 12px;
+  }
+  .movie-title h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .image-container {
+    height: 300px;
+    width: 200px;
+  }
+  .button-container button {
+    padding: 10px 20px;
+    font-size: 12px;
+  }
+}
+
+@media (width<=556px) {
+  .movie-card {
+    flex-direction: column;
+  }
+  .image-container {
+    margin-bottom: 10px;
+  }
+
+  .movie-card main {
+    margin-bottom: 20px;
+  }
+  .movie-data {
+    align-self: center;
+    margin-left: 0;
+  }
+  .movie-data main {
+    align-items: flex-start;
+  }
+}
+
+@media (width<=425px) {
+
+  .movie-card {
+    font-size: 10px;
+  }
+}

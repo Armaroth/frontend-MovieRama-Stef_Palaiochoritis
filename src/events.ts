@@ -38,7 +38,7 @@ export async function handleScroll() {
                 if (!movies.length) {
                     return;
                 }
-                await loadMoviesPage(movies)
+                await loadMoviesPage(movies);
             }
             setIsFetching(false);
         }

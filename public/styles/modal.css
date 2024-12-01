@@ -22,10 +22,9 @@
   position: relative;
   display: flex;
   justify-content: center;
-
   background: rgb(11, 17, 30);
-  /* padding: 20px; */
-  height: 700px;
+  padding: 5px 0;
+  height: 800px;
   max-width: 900px;
   width: 90%;
   border-radius: 8px;

@@ -82,7 +82,7 @@ export async function fetchModalInfo(movieId: number): Promise<Movies> {
         if (success) {
             return movies;
         }
-        return [];  
+        return [];
     } catch (error) {
         throw new Error('Error fetching data from TMDB:');
     }

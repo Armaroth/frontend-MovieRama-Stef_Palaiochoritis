@@ -45,10 +45,6 @@ async function urlLocationHandler() {
         await renderPage(movies);
     }
 }
-
-window.onpopstate = urlLocationHandler;
-window.urlRoute = urlRoute;
-await urlLocationHandler();
 export function navigateTo(path: string) {
     window.history.pushState({}, '', path);
     urlLocationHandler();
@@ -60,3 +56,6 @@ function setActiveLink() {
                 a.classList.add('active') : a.classList.remove('active');
         });
 }
+await urlLocationHandler()
+window.onpopstate = urlLocationHandler;
+window.urlRoute = urlRoute;

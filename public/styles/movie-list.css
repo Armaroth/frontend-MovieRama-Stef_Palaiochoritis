@@ -85,7 +85,7 @@ button:hover {
   }
   .movie-card main {
     flex-direction: column;
-    /* align-items: flex-start; */
+    align-items: flex-start;
     /* align-items: center; */
   }
   .image-container {
@@ -119,27 +119,26 @@ button:hover {
 }
 
 @media (width<=556px) {
-  .movie-card {
+  .movie-list .movie-card {
     flex-direction: column;
   }
-  .image-container {
+  .movie-list .image-container {
     margin-bottom: 10px;
   }
 
-  .movie-card main {
+  .movie-list .movie-card main {
     margin-bottom: 20px;
   }
-  .movie-data {
+  .movie-list .movie-data {
     align-self: center;
     margin-left: 0;
   }
-  .movie-data main {
+  .movie-list .movie-data main {
     align-items: flex-start;
   }
 }
 
 @media (width<=425px) {
-
   .movie-card {
     font-size: 10px;
   }

@@ -94,6 +94,7 @@ button:hover {
   }
   .overview {
     margin-bottom: 5px;
+    max-width: 550px;
   }
   .button-container button {
     font-size: 14px;
@@ -137,9 +138,9 @@ button:hover {
     align-items: flex-start;
   }
 }
-
+/* 
 @media (width<=425px) {
   .movie-card {
     font-size: 10px;
   }
-}
+} */

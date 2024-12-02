@@ -52,7 +52,11 @@ export const ExpandedMovieSchema = v.pipe(
         return {
             id: o.id,
             trailer: trailerUrl,
-            reviews: o.reviews?.results.slice(0, 2).map(r => ({ author: r.author, rating: r.author_details.rating, content: r.content })) || [],
+            reviews: o.reviews?.results.slice(0, 2).map(review => ({
+                author: review.author,
+                rating: review.author_details.rating,
+                content: review.content
+            })) || [],
             similar: o.similar.results.slice(0, 4).map(m => ({ posterPath: m.posterPath, title: m.originalTitle }))
         };
     })

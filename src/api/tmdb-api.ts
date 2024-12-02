@@ -75,7 +75,7 @@ export async function fetchPopular(page: number): Promise<Movies> {
     }
 }
 
-export async function fetchMovieInfo(movieId: string | number): Promise<ExpandedMovie | null> {
+export async function fetchMovieDetails(movieId: string | number): Promise<ExpandedMovie | null> {
     try {
         const response = await fetch(`${TMDB_BASE_URL}/movie/${movieId}?api_key=${TMDB_API_KEY}&append_to_response=videos,reviews,similar`);
         const data = await response.json();

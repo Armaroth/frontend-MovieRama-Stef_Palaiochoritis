@@ -16,12 +16,51 @@
   &:hover {
     background-color: hsla(0, 0%, 80%, 10%);
   }
+  .details {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    opacity: 0;
+    transition: all 300ms ease-out;
+
+    .reviews h2 {
+      margin-bottom: 2rem;
+    }
+
+    .similar-movies {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      section {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    iframe {
+      aspect-ratio: 3/2;
+    }
+
+    .review {
+      margin-bottom: 1rem;
+
+      header {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
 }
 
 .movie-card > section:first-child {
   display: flex;
   border-radius: 0.5rem;
   cursor: pointer;
+}
+.movie-card.expanded {
+  background-color: hsla(0, 0%, 80%, 10%);
 }
 
 .overview {
@@ -44,6 +83,7 @@ img.thumbnail {
   gap: 2rem;
   width: 100%;
 
+  /* margin-bottom: 10px; */
   h2 {
     text-align: center;
   }
@@ -128,10 +168,3 @@ img.thumbnail {
     align-items: flex-start;
   }
 }
-
-/* 
-@media (width<=425px) {
-  .movie-card {
-    font-size: 10px;
-  }
-} */

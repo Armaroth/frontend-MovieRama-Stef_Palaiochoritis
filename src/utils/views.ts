@@ -1,5 +1,5 @@
-import {  Movie, Movies } from "./typings";
-import { getContentSection } from "./utils";
+import { ExpandedMovie, Movie, Movies, Review } from "./typings";
+import { getContentSection, handleExpandedMovie } from "./utils";
 //////////////////
 /////////////////// make the search query appear on the url
 export function createMovieList(movies: Movies) {
@@ -23,15 +23,25 @@ export function createMovieList(movies: Movies) {
     movieCard.innerHTML = createMovieCard(movie);
     movieList.appendChild(movieCard);
   });
-  movieList.querySelectorAll('.movie-card').forEach(b => b.addEventListener('click', () => {
-    // const id = movieCard?
-    const id = b.getAttribute('data-movie-id');
-    console.log(id)
-  }));
-  // handleExpandedMovie(b)
+  movieList.querySelectorAll('.movie-card').forEach(b =>
+    b.addEventListener('click', () => {
+      handleExpandedMovie(b)
+    }));
   return movieList;
 }
 
+export function renderExpandMovie(movie: ExpandedMovie) {
+  const movieCard = document.querySelector(`[data-movie-id="${movie.id}"]`);
+  if (!movieCard) throw new Error('movie card does not exist');
+  const el = document.createElement('section');
+  el.classList.add('details');
+  el.innerHTML = createExpandedMovie(movie);
+  movieCard.appendChild(el);
+  // TODO animate details card
+  requestAnimationFrame(() => {
+    el.style.opacity = '1';
+  });
+}
 function createMovieCard(movie: Movie): string {
   return `
   <section>
@@ -61,10 +71,38 @@ function createMovieCard(movie: Movie): string {
     </section>
     `;
 }
-
+function createExpandedMovie(movie: ExpandedMovie): string {
+  return `
+  <iframe  src="${movie.trailer}"></iframe>
+  <section class="reviews">
+  <h2>Reviews</h2>
+  ${movie.reviews.map(m => createReview(m)).reduce((a, c) => a + c, '') || '<span>No reviews found.</span>'}
+  </section>
+  <section class="similar-movies">
+  <h2>Similar Movies</h2>
+  <section>
+  ${movie.similar.map(s => `<img width=250 alt=${s.title} src="https://image.tmdb.org/t/p/w500/${s.posterPath}" />`).reduce((a, c) => a + c, '')}
+  </section>
+  </section>
+  `;
+}
+function createReview(review: Review): string {
+  return `
+  <article class="review">
+  <header>
+  <strong>${review.author}:</strong>
+  ${review.rating ? '<span>' + review.rating + '/10</span>' : ''}
+  </header>
+  <section>
+  ${review.content}
+  </section>
+  </article>
+  `;
+}
 export function renderLoadingScreen(on: boolean) {
   const contentSec = getContentSection();
-  if (on) {
+  const loadingscreen = document.getElementById('loading-screen');
+  if (on && !loadingscreen) {
     const loadingscreen = `
         <section id="loading-screen">
     <h2>Loading...</h2>
@@ -73,7 +111,6 @@ export function renderLoadingScreen(on: boolean) {
     contentSec.innerHTML = contentSec.innerHTML + loadingscreen;
   }
   else {
-    const loadingscreen = document.getElementById('loading-screen');
     loadingscreen?.parentElement?.removeChild(loadingscreen);
   }
 }

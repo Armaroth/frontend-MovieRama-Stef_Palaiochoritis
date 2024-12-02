@@ -14,28 +14,26 @@ ul {
   padding: 0;
 }
 #header {
-  /* align-self: flex-start; */
-  /* padding-left: 50px; */
   margin-top: 100px;
-  h1 {
-    font-size: 50px;
-    color: rgb(197, 197, 31);
-  }
 }
-h2 {
-  font-size: 40px;
-  color: rgb(197, 197, 31);
-  text-align: center;
-}
-h3 {
-  font-size: 30px;
-  color: rgb(197, 197, 31);
-}
-.main {
+main {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
+  max-width: 1080px;
+  margin: auto;
+}
+button {
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 14px;
+  background-color: hsl(209, 68%, 20%);
+  color: white;
+  cursor: pointer;
+  &:hover {
+    background-color: hsl(209, 68%, 25%);
+  }
 }
 #loading-screen {
   margin-top: 40px;
@@ -78,9 +76,3 @@ h3 {
     }
   }
 }
-/*
-@media (height<=650px) {
-  .modalOverlay {
-    align-items: center;
-  }
-} */

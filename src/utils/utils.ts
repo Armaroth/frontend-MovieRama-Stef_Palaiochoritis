@@ -1,6 +1,5 @@
 import { Movies } from "./typings";
 import { createMovieList } from "./views";
-import { addModalEvent } from "../events";
 export function getContentSection(): HTMLElement {
   const contentSec = document.getElementById('content');
   if (!contentSec) throw new Error('The app is not mounted properly. Cannot find the #content section');
@@ -20,7 +19,7 @@ export async function renderPage(movies: Movies) {
 export async function loadMoviesPage(movies: Movies) {
   const contentSection = getContentSection();
   const movieListHtml = createMovieList(movies);
-  await addModalEvent(movieListHtml);
+  // await addModalEvent(movieListHtml);
   contentSection.appendChild(movieListHtml);
 }
 

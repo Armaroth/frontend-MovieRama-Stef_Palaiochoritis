@@ -1,75 +1,64 @@
 .movie-list {
   margin-top: 50px;
-  text-align: center;
-  font-size: 16px;
-}
-.movie-card {
-  display: flex;
-  margin-bottom: 30px;
-  text-align: center;
-  text-align: start;
-}
-.movie-card main {
-  display: flex;
-  align-items: center;
-}
-.overview {
-  color: rgb(216, 215, 138);
-  max-width: 400px;
-  margin-right: 30px;
 }
 
-.image-container {
+.movie-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-grow: 1;
+}
+
+.movie-card {
+  color: rgb(174, 174, 174);
+  padding: 2rem 1rem;
+
+  &:hover {
+    background-color: hsla(0, 0%, 80%, 10%);
+  }
+}
+
+.movie-card > section:first-child {
+  display: flex;
+  border-radius: 0.5rem;
   cursor: pointer;
+}
+
+.overview {
+  color: rgb(216, 215, 138);
+  max-width: 600px;
+}
+
+img.thumbnail {
   align-self: center;
   border: 1px solid rgb(166, 166, 33);
   height: 400px;
   width: 300px;
   transition: transform 0.4s ease-in-out;
 }
-.image-container:hover {
-  transform: translate(0, -5px);
-}
-img {
-  height: inherit;
-  width: inherit;
-}
 
 .movie-data {
   margin-left: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 2rem;
   width: 100%;
-  /* margin-bottom: 10px; */
 
-  h3 {
+  h2 {
     text-align: center;
-    color: rgb(197, 197, 31);
+  }
+
+  button.see-more {
+    align-self: center;
   }
 }
+
 .attribute {
   color: gray;
 }
+
 .value {
   color: rgb(197, 197, 31);
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-}
-.button-container button {
-  cursor: pointer;
-  border: 0;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 16px;
-}
-button:hover {
-  background-color: rgb(200, 155, 60);
-
-  color: white;
 }
 
 .metadata {
@@ -83,21 +72,21 @@ button:hover {
   .movie-card {
     font-size: 14px;
   }
+
   .movie-card main {
     flex-direction: column;
     align-items: flex-start;
     /* align-items: center; */
   }
+
   .image-container {
     height: 350px;
     width: 250px;
   }
+
   .overview {
     margin-bottom: 5px;
     max-width: 550px;
-  }
-  .button-container button {
-    font-size: 14px;
   }
 }
 
@@ -105,17 +94,15 @@ button:hover {
   .movie-card {
     font-size: 12px;
   }
+
   .movie-title h3 {
     font-size: 20px;
     margin-bottom: 10px;
   }
+
   .image-container {
     height: 300px;
     width: 200px;
-  }
-  .button-container button {
-    padding: 10px 20px;
-    font-size: 12px;
   }
 }
 
@@ -123,6 +110,7 @@ button:hover {
   .movie-list .movie-card {
     flex-direction: column;
   }
+
   .movie-list .image-container {
     margin-bottom: 10px;
   }
@@ -130,14 +118,17 @@ button:hover {
   .movie-list .movie-card main {
     margin-bottom: 20px;
   }
+
   .movie-list .movie-data {
     align-self: center;
     margin-left: 0;
   }
+
   .movie-list .movie-data main {
     align-items: flex-start;
   }
 }
+
 /* 
 @media (width<=425px) {
   .movie-card {

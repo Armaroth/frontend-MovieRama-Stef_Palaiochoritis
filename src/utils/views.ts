@@ -1,62 +1,66 @@
 import { addModalEvent } from "../events";
-import { ModalMovie, Movies } from "./typings";
-import {  getContentSection } from "./utils";
+import { ModalMovie, Movie, Movies } from "./typings";
+import { getContentSection } from "./utils";
 //////////////////
 /////////////////// make the search query appear on the url
-/////////////
-export function createMovieList(movies: Movies): HTMLElement {
-  const fragment = document.createDocumentFragment();
-  const movieListHtml = document.createElement('section');
-  movieListHtml.className = 'movie-list';
+export function createMovieList(movies: Movies) {
+  let movieList = document.querySelector('.movie-list');
+  if (!movieList) {
+    movieList = document.createElement('search');
+    movieList.classList.add('movie-list');
+  }
   if (movies.length === 0) {
-    movieListHtml.innerHTML = `
+    movieList.innerHTML = `
     <h3>
     Cannot find the movie you are looking for
     </h3>
-    `
+    `;
+    return movieList;
   }
   movies.forEach(movie => {
     const movieCard = document.createElement('section');
     movieCard.className = 'movie-card';
-    movieCard.innerHTML = `
-<section class="image-container">
- <img class='see-more' data-movie-id="${movie.id}" src="https://image.tmdb.org/t/p/w500/${movie.posterPath}" alt="${movie.title}"  />
-</section>
- <section class="movie-data">
-  <section class="movie-title">
-   <h3>${movie.title}</h3>
-  </section>
-   <main>
-    <section class="overview">
-     <p >${movie.overview ? movie.overview : 'No overview available'}</p>
-    </section>
-    <section class='metadata'>
-     <section class="movie-date"> 
-      <span class="attribute">Year:</span>
-      <span class="value">${movie.releaseDate.split('-')[0]}</span>
-     </section>
-     <section class='genres'>
-      <span class="attribute">Genres:</span>
-      <span class="value">${movie.genres.map(genre => genre?.name).join(', ')}</span>
-     </section>
-      <section>
-       <span class="attribute">Vote average:</span>
-       <span class="value">${movie.voteAverage.toFixed(1)}</span>
-      </section>
-     </section>
-   </main>
-   <section class="button-container">
-    <button class="see-more" data-movie-id="${movie.id}">
-     <p>See more</p>
-    </button>
-   </section>
-   </section>
-    `;
-    fragment.appendChild(movieCard);
+    movieCard.setAttribute('data-movie-id', movie.id.toString());
+    movieCard.innerHTML = createMovieCard(movie);
+    movieList.appendChild(movieCard);
   });
-  movieListHtml.appendChild(fragment);
+  movieList.querySelectorAll('.movie-card').forEach(b => b.addEventListener('click', () => {
+    // const id = movieCard?
+    const id = b.getAttribute('data-movie-id');
+    console.log(id)
+  }));
+  // handleExpandedMovie(b)
+  return movieList;
+}
 
-  return movieListHtml;
+function createMovieCard(movie: Movie): string {
+  return `
+  <section>
+    <img class='thumbnail' data-movie-id="${movie.id}" src="https://image.tmdb.org/t/p/w500/${movie.posterPath}" alt="${movie.title}"  />
+    <section class="movie-data">
+      <h2>${movie.title}</h2>
+      <section class="movie-content">
+        <section class="overview">
+        <p >${movie.overview ?? 'No overview available'}</p>
+        </section>
+        <section class='metadata'>
+        <section class="movie-date"> 
+          <span class="attribute">Year:</span>
+          <span class="value">${movie.releaseDate ? movie.releaseDate.split('-')[0] : 'N/A'}</span>
+        </section>
+        <section class='genres'>
+          <span class="attribute">Genres:</span>
+          <span class="value">${movie.genres.map(genre => genre?.name).join(', ')}</span>
+        </section>
+          <section>
+          <span class="attribute">Vote average:</span>
+          <span class="value">${movie.voteAverage ? movie.voteAverage.toFixed(1) : '-'}</span>
+          </section>
+        </section>
+      </section>
+      </section>
+    </section>
+    `;
 }
 export function createModal(movie: ModalMovie): HTMLElement {
   const modal = document.createElement('section');

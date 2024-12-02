@@ -34,8 +34,9 @@ async function urlLocationHandler() {
     const page = resetCurrentPage();
     document.title = route.title;
     document.querySelector('meta[name="description"]')?.setAttribute('content', route.description);
-    renderHeading(route.heading);
-    if (route.fetchMovies) {
+    // renderHeading(route.heading);
+    route.renderHeading();
+        if (route.fetchMovies) {
         const movies = await route.fetchMovies(page);
         await renderPage(movies);
     }
@@ -53,4 +54,3 @@ function setActiveLink() {
 }
 await urlLocationHandler()
 window.onpopstate = urlLocationHandler;
-window.urlRoute = urlRoute;

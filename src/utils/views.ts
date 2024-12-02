@@ -37,7 +37,6 @@ export function renderExpandMovie(movie: ExpandedMovie) {
   el.classList.add('details');
   el.innerHTML = createExpandedMovie(movie);
   movieCard.appendChild(el);
-  // TODO animate details card
   requestAnimationFrame(() => {
     el.style.opacity = '1';
   });

@@ -1,8 +1,6 @@
-import { safeParse } from "valibot";
-import { TMDB_API_KEY, TMDB_BASE_URL } from "../api/constants";
+import { addModalEvent } from "../events";
 import { ModalMovie, Movies } from "./typings";
-import { addModalEvent, getContentSection } from "./utils";
-import { ModalMovieSchema } from "../api/valibot";
+import {  getContentSection } from "./utils";
 //////////////////
 /////////////////// make the search query appear on the url
 /////////////

@@ -1,19 +1,21 @@
-import { MoviesSchema } from "./valibot.js";
+import { Genres, GenresSchema, MoviesSchema } from "./valibot.js";
 import * as v from 'valibot'
 import { TMDB_API_KEY, TMDB_BASE_URL } from "./constants.js";
 import { Movies } from "../utils/typings.js";
 import { renderLoadingScreen } from "../utils/views.js";
 
-export const genres: { id: number, name: string }[] = await (async function fetchGenres() {
+export const genres: Genres = await (async function fetchGenres() {
     /// maybe implement parsing with valibot
     try {
         const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_API_KEY}`);
         const data = await response.json();
-        const genres = data.genres;
-        return genres;
+        const { output: genres, success } = v.safeParse(GenresSchema, data.genres)
+        if (success) return genres;
+        else return [];
     } catch (error) {
         console.error('Error fetching genres:', error);
-    }
+        return []
+    };
 })();
 export async function fetchNowPlaying(page: number): Promise<Movies> {
     try {

@@ -78,8 +78,10 @@ export const ModalMovieSchema = v.pipe(
     }))
 );
 
-export const genresSchema = v.array(v.object({
-    id: v.string(),
+export const GenresSchema = v.array(v.object({
+    id: v.number(),
     name: v.string()
 }))
 
+
+export type Genres = v.InferOutput<typeof GenresSchema> 

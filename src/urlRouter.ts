@@ -1,5 +1,5 @@
 import { urlRoutes } from "./utils/route.js";
-import { getCurrentRoute, resetCurrentPage, setCurrentRoute } from "./state.js";
+import { resetCurrentPage, setCurrentRoute } from "./state.js";
 import { RouteKeys } from "./utils/typings.js";
 import { renderHeading, renderPage, resetHtml } from "./utils/utils.js";
 
@@ -29,12 +29,7 @@ async function urlLocationHandler() {
             return;
         }
     }
-    if (location in urlRoutes) {
-        setCurrentRoute(location);
-    } else {
-        setCurrentRoute(404);
-    }
-    const currentRoute = getCurrentRoute();
+    const currentRoute = setCurrentRoute(location in urlRoutes ? location : 404)
     const route = urlRoutes[currentRoute as RouteKeys];
     const page = resetCurrentPage();
     document.title = route.title;

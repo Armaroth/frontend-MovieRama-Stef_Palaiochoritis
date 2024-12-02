@@ -33,10 +33,6 @@ export async function fetchNowPlaying(page: number): Promise<Movies> {
     }
 }
 export async function fetchSearchResults(page: number): Promise<Movies> {
-    window.scrollTo({
-        top: 0,
-        behavior: 'auto',
-    });
     const inputComponent = document.getElementById('search') as HTMLInputElement;
     const query: string = inputComponent.value;
     try {

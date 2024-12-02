@@ -29,19 +29,19 @@ export async function handleScroll() {
     if (scrollTimeout) return;
     scrollTimeout = setTimeout(async () => {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-        if (scrollTop + clientHeight >= scrollHeight - 30 && !getIsFetching()) {
+        if (scrollTop + clientHeight >= scrollHeight - 2000 && !getIsFetching()) {
             const page = getCurrentPage();
             const route = getCurrentRoute();
             setIsFetching(true);
             if (urlRoutes[route].fetchMovies) {
                 const movies = await urlRoutes[route].fetchMovies(page);
+                setIsFetching(false);
                 if (!movies.length) {
-                    setIsFetching(false);
                     return;
                 }
                 await loadMoviesPage(movies);
             }
+            setIsFetching(false);
         }
-        setIsFetching(false);
     }, 400);
 }

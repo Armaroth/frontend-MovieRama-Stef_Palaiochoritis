@@ -9,8 +9,16 @@ export function getContentSection(): HTMLElement {
 
 export async function handleExpandedMovie(movieCard: Element) {
   if (movieCard?.classList.contains('expanded')) {
-    movieCard.classList.remove('expanded');
     movieCard.querySelector('.details')?.remove();
+    movieCard.classList.remove('expanded');
+    movieCard.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+    window.scrollBy({
+      top: movieCard.getBoundingClientRect().y - 200,
+      behavior: 'smooth'
+    });
     return;
   };
   movieCard?.classList.add('expanded');
@@ -19,6 +27,7 @@ export async function handleExpandedMovie(movieCard: Element) {
   const movieDetais = await fetchMovieDetails(id);
   if (movieDetais)
     renderExpandMovie(movieDetais);
+  movieCard.querySelector('iframe')?.scrollIntoView({ behavior: 'smooth' });
 }
 
 export function renderHeading(content: string): void {
@@ -35,7 +44,6 @@ export async function renderPage(movies: Movies) {
 export async function loadMoviesPage(movies: Movies) {
   const contentSection = getContentSection();
   const movieListHtml = createMovieList(movies);
-  // await addModalEvent(movieListHtml);
   contentSection.appendChild(movieListHtml);
 }
 

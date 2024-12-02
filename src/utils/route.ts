@@ -1,4 +1,4 @@
-const urlPageTitle = "JS Single Page Application Router";
+const urlPageTitle = "MovieRama";
 import { fetchNowPlaying, fetchSearchResults } from "../api/tmdb-api";
 import { UrlRoutes } from "./typings";
 export const urlRoutes: UrlRoutes = {

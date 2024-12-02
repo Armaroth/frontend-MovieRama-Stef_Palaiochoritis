@@ -1,7 +1,7 @@
 import { urlRoutes } from "./utils/route.js";
 import { resetCurrentPage, setCurrentRoute } from "./state.js";
 import { RouteKeys } from "./utils/typings.js";
-import { renderHeading, renderPage, resetHtml } from "./utils/utils.js";
+import {renderPage, resetHtml } from "./utils/utils.js";
 
 document.querySelectorAll('a').forEach(a => a.addEventListener('click', (e: MouseEvent) => {
     e.preventDefault();
@@ -20,7 +20,6 @@ function urlRoute(event: MouseEvent) {
 }
 async function urlLocationHandler() {
     let location = window.location.pathname;
-    setActiveLink();
     if (window.location.pathname === '/search') {
         const searchInput = document.getElementById('search') as HTMLInputElement;
         if (!searchInput.value) {
@@ -34,7 +33,6 @@ async function urlLocationHandler() {
     const page = resetCurrentPage();
     document.title = route.title;
     document.querySelector('meta[name="description"]')?.setAttribute('content', route.description);
-    // renderHeading(route.heading);
     route.renderHeading();
         if (route.fetchMovies) {
         const movies = await route.fetchMovies(page);
@@ -45,12 +43,6 @@ export function navigateTo(path: string) {
     window.history.pushState({}, '', path);
     urlLocationHandler();
 }
-function setActiveLink() {
-    document.querySelectorAll('a')
-        .forEach(a => {
-            a.href === `${window.location.origin}${window.location.pathname}` ?
-                a.classList.add('active') : a.classList.remove('active');
-        });
-}
+
 await urlLocationHandler()
 window.onpopstate = urlLocationHandler;

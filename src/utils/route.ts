@@ -1,5 +1,5 @@
 const urlPageTitle = "JS Single Page Application Router";
-import { fetchNowPlaying, fetchPopular, fetchSearchResults } from "../api/tmdb-api";
+import { fetchNowPlaying, fetchSearchResults } from "../api/tmdb-api";
 import { UrlRoutes } from "./typings";
 export const urlRoutes: UrlRoutes = {
     '/': {
@@ -29,20 +29,6 @@ export const urlRoutes: UrlRoutes = {
         description: '',
         fetchMovies: fetchSearchResults
         ,
-    },
-    '/popular': {
-        renderHeading: () => {
-            const headerSection = document.getElementById('header');
-
-            if (!headerSection) {
-                throw new Error('App is not properly Rendered. Cannot find header Section')
-            }
-            headerSection.innerHTML = `
-                    <h1>Popular Movies: </h1>
-                    `},
-        title: "Popular | " + urlPageTitle,
-        description: '',
-        fetchMovies: fetchPopular
     },
     404: {
         renderHeading: () => {

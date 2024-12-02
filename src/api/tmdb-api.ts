@@ -2,7 +2,6 @@ import { ExpandedMovieSchema, GenresSchema, MoviesSchema } from "./valibot.js";
 import * as v from 'valibot'
 import { ExpandedMovie, Genres, Movies } from "../utils/typings.js";
 import { renderLoadingScreen } from "../utils/views.js";
-
 const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const TMDB_BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 export const genres: Genres = await (async function fetchGenres() {
@@ -46,23 +45,6 @@ export async function fetchSearchResults(page: number): Promise<Movies> {
 
         }
 
-        return [];
-
-    } catch (error) {
-        throw new Error('Error fetching data from TMDB:');
-    } finally {
-        renderLoadingScreen(false);
-    }
-}
-export async function fetchPopular(page: number): Promise<Movies> {
-    try {
-        renderLoadingScreen(true);
-        const response = await fetch(`${TMDB_BASE_URL}/movie/popular?api_key=${TMDB_API_KEY}&language=en-US&page=${page}`);
-        const data = await response.json();
-        const { success, output: movies } = v.safeParse(MoviesSchema, data.results);
-        if (success) {
-            return movies;
-        }
         return [];
 
     } catch (error) {

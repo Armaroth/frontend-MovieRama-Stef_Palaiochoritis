@@ -1,6 +1,11 @@
+import { safeParse } from "valibot";
+import { TMDB_API_KEY, TMDB_BASE_URL } from "../api/constants";
 import { ModalMovie, Movies } from "./typings";
-import { getContentSection } from "./utils";
-
+import { addModalEvent, getContentSection } from "./utils";
+import { ModalMovieSchema } from "../api/valibot";
+//////////////////
+/////////////////// make the search query appear on the url
+/////////////
 export function createMovieList(movies: Movies): HTMLElement {
   const fragment = document.createDocumentFragment();
   const movieListHtml = document.createElement('section');
@@ -52,12 +57,9 @@ export function createMovieList(movies: Movies): HTMLElement {
     fragment.appendChild(movieCard);
   });
   movieListHtml.appendChild(fragment);
-  // addModalEvent(movies, movieListHtml);
 
   return movieListHtml;
 }
-
-
 export function createModal(movie: ModalMovie): HTMLElement {
   const modal = document.createElement('section');
   modal.classList.add('modal');
@@ -104,9 +106,9 @@ export function createModal(movie: ModalMovie): HTMLElement {
             ${movie.similarMovies
       .map(
         (movie) =>
-          `<li>
+          `<li class="movie-item">
             <span class="similar-movie-title">${movie.title}</span>
-            <img class="similar-movie-img"  data-movie-id="${movie.id}" src="https://image.tmdb.org/t/p/w500/${movie.posterPath}" alt="Image unavailable"/>
+            <img class="similar-movie-img see-more"  src="https://image.tmdb.org/t/p/w500/${movie.posterPath}" data-movie-id="${movie.id}" alt="Image unavailable"/>
            </li>`
       )
       .join('') || '<li>No similar movies available.</li>'}
@@ -123,28 +125,24 @@ export function createModal(movie: ModalMovie): HTMLElement {
         </section>
        </section>
   `;
-
   const overlay = modal.querySelector('.modal-overlay');
   const closeButton = modal.querySelector('.modal-close');
   overlay?.addEventListener('click', () => closeModal(modal));
   closeButton?.addEventListener('click', () => closeModal(modal));
   const modalContent = modal.querySelector('.modal-content');
   modalContent?.addEventListener('click', (e) => e.stopPropagation());
-
+  addModalEvent(modal)
   return modal;
-
 }
 export function showModal(modal: HTMLElement) {
   const contentSection = getContentSection();
   contentSection.appendChild(modal);
   document.body.classList.add('no-scroll');
 }
-function closeModal(modal: HTMLElement) {
+export function closeModal(modal: HTMLElement) {
   modal.remove();
   document.body.classList.remove('no-scroll');
-
 }
-
 export function renderLoadingScreen(on: boolean) {
   const contentSec = getContentSection();
   if (on) {

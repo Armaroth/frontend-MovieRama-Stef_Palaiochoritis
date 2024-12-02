@@ -2,7 +2,7 @@ import { TMDB_API_KEY, TMDB_BASE_URL } from "../api/constants";
 import { ModalMovieSchema } from "../api/valibot";
 import { Movies } from "./typings";
 import { safeParse } from 'valibot'
-import { createMovieList, showModal, createModal } from "./views";
+import { createMovieList, showModal, createModal, closeModal, renderLoadingScreen } from "./views";
 export function getContentSection(): HTMLElement {
   const contentSec = document.getElementById('content');
   if (!contentSec) throw new Error('The app is not mounted properly. Cannot find the #content section');
@@ -22,17 +22,19 @@ export async function renderPage(movies: Movies) {
 export async function loadMoviesPage(movies: Movies) {
   const contentSection = getContentSection();
   const movieListHtml = createMovieList(movies);
+  await addModalEvent(movieListHtml);
   contentSection.appendChild(movieListHtml);
-  await addModalEvent();
 }
 
 export function resetHtml() {
   const contentSec = getContentSection();
   contentSec.replaceChildren();
 }
-
-export async function addModalEvent() {
-  const buttons = document.querySelectorAll('.see-more');
+renderLoadingScreen
+export async function addModalEvent(node: HTMLElement) {
+  const oldModal = document.querySelector('.modal') as HTMLElement;
+  if (oldModal) closeModal(oldModal);
+  const buttons = node.querySelectorAll('.see-more');
   buttons.forEach(async (button) => {
     button.addEventListener('click', async () => {
       const movieId = button.getAttribute('data-movie-id');
@@ -43,9 +45,8 @@ export async function addModalEvent() {
         if (button.parentElement) button.parentElement.innerHTML = '<h1 class="no-info">No additional info</h1>'
       }
       else {
-        const modal = createModal(output)
+        const modal: HTMLElement = createModal(output)
         showModal(modal);
-
       }
     })
 

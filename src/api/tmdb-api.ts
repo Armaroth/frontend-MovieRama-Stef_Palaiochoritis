@@ -1,9 +1,10 @@
 import { ExpandedMovieSchema, GenresSchema, MoviesSchema } from "./valibot.js";
 import * as v from 'valibot'
-import { TMDB_API_KEY, TMDB_BASE_URL } from "./constants.js";
 import { ExpandedMovie, Genres, Movies } from "../utils/typings.js";
 import { renderLoadingScreen } from "../utils/views.js";
 
+const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+const TMDB_BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 export const genres: Genres = await (async function fetchGenres() {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_API_KEY}`);

@@ -22,9 +22,8 @@ export function navigateTo(path: URL) {
 }
 
 (async () => {
-    resetPageParam();
     patchSearchInput();
     window.scrollTo({ top: 0 });
     window.onpopstate = urlLocationHandler;
-    await urlLocationHandler();
+    resetPageParam();
 })();

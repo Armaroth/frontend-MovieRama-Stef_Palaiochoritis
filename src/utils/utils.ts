@@ -31,35 +31,37 @@ export function resetParams() {
 }
 // handles the rendering of movie card details
 export async function handleExpandedMovie(movieCard: Element) {
-  //if movie card is already clicked
+  //if any  other movie card is already clicked
+  const movieId = movieCard.getAttribute('data-movie-id');
+  const movieCards = document.querySelectorAll('.movie-card');
+  movieCards.forEach(m => {
+    const mId = m.getAttribute('data-movie-id');
+    if (mId !== movieId) {
+      m.classList.remove('expanded')
+      m.querySelector('.details')?.remove();
+    }
+  }
+  )
+  //if selected card was expanded
   if (movieCard?.classList.contains('expanded')) {
     movieCard.querySelector('.details')?.remove();
     movieCard.classList.remove('expanded');
     //scrolls the clicked movie card back into view
     movieCard.scrollIntoView({
       behavior: 'smooth',
-      block: 'start'
+      block: 'center'
     });
-    window.scrollBy({
-      top: movieCard.getBoundingClientRect().y - 100,
-      behavior: 'smooth'
-    });
+
     return;
   };
-  //if movie card is not already clicked
+  // if not
   movieCard?.classList.add('expanded');
   const id = movieCard?.getAttribute('data-movie-id');
   if (!id) throw new Error("see-more: movie id not found");
   const movieDetais = await fetchMovieDetails(id);
   if (movieDetais)
     renderExpandMovie(movieDetais);
-  //scroll the movie trailer of movie details into view
-  movieCard.querySelector('iframe')?.scrollIntoView({ behavior: 'smooth' })
-  window.scrollBy({
-    top: movieCard.querySelector('iframe')?.getBoundingClientRect().y! - 100,
-    behavior: 'smooth'
-  });
-  ;
+  movieCard.querySelector('iframe')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 }
 //renders the page heading section depending on the content given
 export function renderHeading(content: string): void {

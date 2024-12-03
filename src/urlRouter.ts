@@ -11,11 +11,9 @@ async function urlLocationHandler() {
     route.renderHeading();
     document.title = route.title;
     document.querySelector('meta[name="description"]')?.setAttribute('content', route.description);
-    if (route.fetchMovies) {
-        setIsFetching(true);
-        const movies = await route.fetchMovies();
-        page === '1' ? renderPage(movies) : loadMoviesPage(movies);
-    }
+    setIsFetching(true);
+    const movies = await route.fetchMovies();
+    page === '1' ? renderPage(movies) : loadMoviesPage(movies);
 }
 // pushes the url path to the window history and calls the function to handle any changes
 export function navigateTo(path: URL) {

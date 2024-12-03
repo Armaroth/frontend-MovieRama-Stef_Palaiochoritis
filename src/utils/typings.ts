@@ -6,7 +6,7 @@ export type RouteConfig = {
     renderHeading: () => void
     title: string;
     description: string;
-    fetchMovies?: () => Promise<Movies>
+    fetchMovies: () => Promise<Movies>
 };
 export type UrlRoutes = {
     [key: string]: RouteConfig;

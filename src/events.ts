@@ -29,18 +29,16 @@ export async function handleScroll() {
         if (scrollTop + clientHeight >= scrollHeight - 2000 && !getIsFetching()) {
             let location: string = window.location.pathname;
             const route = urlRoutes[location as RouteKeys];
-            if (route.fetchMovies) {
-                const pagestr = extractCurrentPage();
-                const page = Number(pagestr) + 1;
-                const url = URL.parse(window.location.href) as URL;
-                url?.searchParams.set('page', page.toString());
-                setIsFetching(true);
-                const movies = await route.fetchMovies();
-                if (!movies.length) {
-                    return;
-                }
-                navigateTo(url);
+            const pagestr = extractCurrentPage();
+            const page = Number(pagestr) + 1;
+            const url = URL.parse(window.location.href) as URL;
+            url?.searchParams.set('page', page.toString());
+            setIsFetching(true);
+            const movies = await route.fetchMovies();
+            if (!movies.length) {
+                return;
             }
+            navigateTo(url);
         }
     }, 1000);
 }

@@ -17,15 +17,15 @@ npm or yarn
 
 1. Clone the repository:
    git clone https://github.com/Armaroth/frontend-MovieRama-Stef_Palaiochoritis.git
-   cd MovieRama
+   && cd MovieRama
 
 2. Install dependencies:
    npm install
 
 3. Create a .env file at the root of your project and add your TMDB API key and base URL
 
-   VITE_TMDB_API_KEY = 'bc50218d91157b1ba4f142ef7baaa6a0' as provided in the assignment .
-   VITE_TMDB_BASE_URL = 'https://api.themoviedb.org/3' .
+- VITE_TMDB_API_KEY = 'bc50218d91157b1ba4f142ef7baaa6a0' as provided in the assignment .
+- VITE_TMDB_BASE_URL = 'https://api.themoviedb.org/3' .
 
 ## Usage
 
@@ -34,8 +34,8 @@ npm or yarn
 2.  Open your browser and navigate to:
     http://localhost:5173/
 
-# Technologies Used
+## Technologies Used
 
-Frontend: TypeScript, HTML, CSS
-API: The Movie Database (TMDB) API
-Data Validation: valibot for schema validation
+- Frontend: TypeScript, HTML, CSS
+- API: The Movie Database (TMDB) API
+- Data Validation: valibot for schema validation

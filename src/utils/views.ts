@@ -1,10 +1,11 @@
 import { ExpandedMovie, Movie, Movies, Review } from "./typings";
 import { extractCurrentPage, getContentSection, handleExpandedMovie } from "./utils";
 
+//creates the html content depending on if there are movies fetched
 export function createMovieList(movies: Movies) {
   let movieList = document.querySelector('.movie-list');
   if (!movieList) {
-    movieList = document.createElement('search');
+    movieList = document.createElement('section');
     movieList.classList.add('movie-list');
   }
   if (movies.length === 0 && +extractCurrentPage() === 1) {
@@ -20,14 +21,19 @@ export function createMovieList(movies: Movies) {
     movieCard.className = 'movie-card';
     movieCard.setAttribute('data-movie-id', movie.id.toString());
     movieCard.innerHTML = createMovieCard(movie);
-    movieList.appendChild(movieCard);
+    //adds the expand handlers on each movie-card 
+    movieCard.addEventListener('click', () => {
+      handleExpandedMovie(movieCard)
+    });
+    movieList.appendChild(movieCard)
+
   });
-  movieList.querySelectorAll('.movie-card').forEach(b =>
-    b.addEventListener('click', () => {
-      handleExpandedMovie(b)
-    }));
   return movieList;
 }
+
+
+
+//shows the movie details of a movie-card
 export function renderExpandMovie(movie: ExpandedMovie) {
   const movieCard = document.querySelector(`[data-movie-id="${movie.id}"]`);
   if (!movieCard) throw new Error('movie card does not exist');
@@ -39,6 +45,8 @@ export function renderExpandMovie(movie: ExpandedMovie) {
     el.style.opacity = '1';
   });
 }
+
+//return the movie card of a fetched movie
 function createMovieCard(movie: Movie): string {
   return `
   <section>
@@ -68,6 +76,8 @@ function createMovieCard(movie: Movie): string {
     </section>
     `;
 }
+
+//returns the movie details section as a string to be added on the movie-card html
 function createExpandedMovie(movie: ExpandedMovie): string {
   return `
   <iframe  src="${movie.trailer}"></iframe>
@@ -83,6 +93,7 @@ function createExpandedMovie(movie: ExpandedMovie): string {
   </section>
   `;
 }
+//returns the reviews section as a string to be added on the expanded movie section
 function createReview(review: Review): string {
   return `
   <article class="review">
@@ -96,6 +107,7 @@ function createReview(review: Review): string {
   </article>
   `;
 }
+// renders a header element saying 'loading' on the screen when fetching movies or loading a new page
 export function renderLoadingScreen(on: boolean) {
   const contentSec = getContentSection();
   const loadingscreen = document.getElementById('loading-screen');

@@ -4,6 +4,7 @@ import { navigateTo } from "./urlRouter";
 import { extractCurrentPage, resetHtml } from "./utils/utils";
 import { RouteKeys } from "./utils/typings";
 
+//input event listener
 const searchInput = document.getElementById('search') as HTMLInputElement;
 let debounceTimeout: ReturnType<typeof setTimeout>;
 searchInput.addEventListener('input', (event: Event) => {
@@ -17,6 +18,8 @@ searchInput.addEventListener('input', (event: Event) => {
         navigateTo(url);
     }, 300);
 });
+
+// scroll event listener
 window.addEventListener("scroll", handleScroll);
 export async function handleScroll() {
     let scrollTimeout: NodeJS.Timeout | null = null;

@@ -1,8 +1,9 @@
 import { setIsFetching } from "./state.js";
 import { urlRoutes } from "./utils/route.js";
 import { RouteKeys } from "./utils/typings.js";
-import { extractCurrentPage, loadMoviesPage, renderPage, resetPageParam } from "./utils/utils.js";
+import { extractCurrentPage, loadMoviesPage, renderPage, resetParams } from "./utils/utils.js";
 
+// handles any changes on the url path or params change
 async function urlLocationHandler() {
     const page = extractCurrentPage();
     let location: string = window.location.pathname
@@ -16,14 +17,16 @@ async function urlLocationHandler() {
         page === '1' ? renderPage(movies) : loadMoviesPage(movies);
     }
 }
+// pushes the url path to the window history and calls the function to handle any changes
 export function navigateTo(path: URL) {
     window.history.pushState({}, '', path);
     urlLocationHandler();
 }
 
+//initiates  the application
 (async () => {
     window.scrollTo({ top: 0 });
     window.onpopstate = urlLocationHandler;
-    resetPageParam();
+    resetParams();
     urlLocationHandler();
 })();

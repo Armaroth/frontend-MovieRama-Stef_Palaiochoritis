@@ -5,6 +5,9 @@ import { renderLoadingScreen } from "../utils/views.js";
 import { extractCurrentPage, extractSearchTerm } from '../utils/utils.js';
 const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const TMDB_BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
+
+//fetches all movie genres from tmdb so that they can be used in the data tranformation of movies
+//see     /src/api/valibot line 19
 export const genres: Genres = await (async function fetchGenres() {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_API_KEY}`);
@@ -17,6 +20,8 @@ export const genres: Genres = await (async function fetchGenres() {
         return []
     };
 })();
+
+// fetches the movies now playing in theaters
 export async function fetchNowPlaying(): Promise<Movies> {
     const currentPage = extractCurrentPage();
     try {
@@ -34,6 +39,7 @@ export async function fetchNowPlaying(): Promise<Movies> {
         renderLoadingScreen(false);
     }
 }
+// fetches the movies corresponding to the user input
 export async function fetchSearchResults(): Promise<Movies> {
     const currentPage = extractCurrentPage();
     const query = extractSearchTerm();
@@ -53,6 +59,7 @@ export async function fetchSearchResults(): Promise<Movies> {
         renderLoadingScreen(false);
     }
 }
+// fetches a selected movies details
 export async function fetchMovieDetails(movieId: string | number): Promise<ExpandedMovie | null> {
     try {
         const response = await fetch(`${TMDB_BASE_URL}/movie/${movieId}?api_key=${TMDB_API_KEY}&append_to_response=videos,reviews,similar`);

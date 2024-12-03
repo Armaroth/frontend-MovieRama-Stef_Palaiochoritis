@@ -42,7 +42,7 @@ export async function handleExpandedMovie(movieCard: Element) {
       block: 'start'
     });
     window.scrollBy({
-      top: movieCard.getBoundingClientRect().y - 200,
+      top: movieCard.getBoundingClientRect().y - 100,
       behavior: 'smooth'
     });
     return;
@@ -53,7 +53,12 @@ export async function handleExpandedMovie(movieCard: Element) {
   const movieDetais = await fetchMovieDetails(id);
   if (movieDetais)
     renderExpandMovie(movieDetais);
-  movieCard.querySelector('iframe')?.scrollIntoView({ behavior: 'smooth' });
+  movieCard.querySelector('iframe')?.scrollIntoView({ behavior: 'smooth' })
+  window.scrollBy({
+    top: movieCard.querySelector('iframe')?.getBoundingClientRect().y! - 100,
+    behavior: 'smooth'
+  });
+  ;
 }
 
 

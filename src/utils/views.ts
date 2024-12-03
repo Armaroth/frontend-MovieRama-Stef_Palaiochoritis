@@ -78,7 +78,7 @@ function createExpandedMovie(movie: ExpandedMovie): string {
   <section class="similar-movies">
   <h2>Similar Movies</h2>
   <section>
-  ${movie.similar.map(s => `<img width=250 alt=${s.title} src="https://image.tmdb.org/t/p/w500/${s.posterPath}" />`).reduce((a, c) => a + c, '')}
+  ${movie.similar.map(s => `<img width=200 alt=${s.title} src="https://image.tmdb.org/t/p/w500/${s.posterPath}" />`).reduce((a, c) => a + c, '')}
   </section>
   </section>
   `;

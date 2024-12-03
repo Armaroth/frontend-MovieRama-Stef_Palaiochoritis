@@ -2,11 +2,10 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-
   position: fixed;
   padding: 1rem 2rem;
   background-color: rgb(5, 16, 26);
-  width: 1080px;
+  width: 900px;
   border-top: none;
   border-radius: 0 0 10px 10px;
   display: flex;
@@ -47,16 +46,13 @@
 
 @media (width<=992px) {
   .navigation {
-    width: 750px;
+    width: 650px;
   }
 }
 
 @media (width<=768px) {
   .navigation {
     width: 550px;
-    a {
-      font-size: 16px;
-    }
   }
   #search {
     font-size: 16px;
@@ -74,9 +70,7 @@
 @media (width<=556px) {
   .navigation {
     width: 420px;
-    a {
-      font-size: 14px;
-    }
+ 
   }
   #search {
     font-size: 14px;
@@ -91,10 +85,7 @@
 
 @media (width<=425px) {
   .navigation {
-    width: 350px;
-    a {
-      font-size: 12px;
-    }
+    width: 300px;
   }
   #search {
     font-size: 12px;

@@ -40,12 +40,11 @@
     }
 
     iframe {
-      aspect-ratio: 3/2;
+      height: 400px;
     }
 
     .review {
       margin-bottom: 1rem;
-
       header {
         font-size: 2rem;
         margin-bottom: 1.5rem;
@@ -83,7 +82,6 @@ img.thumbnail {
   gap: 2rem;
   width: 100%;
 
-  /* margin-bottom: 10px; */
   h2 {
     text-align: center;
   }
@@ -111,12 +109,19 @@ img.thumbnail {
 @media (width<=992px) {
   .movie-card {
     font-size: 14px;
+    .details {
+      gap: 1rem;
+      flex-wrap: wrap;
+      img {
+        height: 200px;
+        width: 150px;
+      }
+    }
   }
 
   .movie-card main {
     flex-direction: column;
     align-items: flex-start;
-    /* align-items: center; */
   }
 
   .image-container {
@@ -132,7 +137,15 @@ img.thumbnail {
 
 @media (width<=768px) {
   .movie-card {
-    font-size: 12px;
+    font-size: 14px;
+    .details {
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      img {
+        height: 180px;
+        width: 120px;
+      }
+    }
   }
 
   .movie-title h3 {
@@ -144,9 +157,47 @@ img.thumbnail {
     height: 300px;
     width: 200px;
   }
+  .movie-card > section:first-child {
+    flex-direction: column;
+  }
+  img.thumbnail {
+    height: 300px;
+    width: 200px;
+  }
+  .movie-list .movie-data {
+    align-self: center;
+    margin-left: 0;
+  }
 }
 
 @media (width<=556px) {
+  .movie-card {
+    .similar-movies {
+      flex-direction: column;
+    }
+    .details {
+      flex-wrap: wrap;
+      img {
+        height: 180px;
+        width: 120px;
+      }
+    }
+    .similar-movies > section {
+      display: flex;
+      /* flex-wrap: wrap; */
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      img {
+        margin-bottom: 20px;
+        width: 150px;
+        height: 200px;
+      }
+    }
+    iframe {
+      height: 200px;
+    }
+  }
   .movie-list .movie-card {
     flex-direction: column;
   }

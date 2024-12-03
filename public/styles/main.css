@@ -17,7 +17,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 1080px;
+  max-width: 900px;
   margin: auto;
 }
 button {

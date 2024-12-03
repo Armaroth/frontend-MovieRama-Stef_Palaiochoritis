@@ -11,8 +11,8 @@ searchInput.addEventListener('input', (event: Event) => {
     debounceTimeout = setTimeout(async () => {
         resetHtml();
         scrollTo(0, 0);
-        const url = new URL(window.location.origin + (searchInput.value ? '/search' : ''));
-        !searchInput.value ? url.searchParams.delete('term') : url.searchParams.append('term', searchInput.value);
+        const url = new URL(window.location.origin + (searchInput.value.trim() ? '/search' : ''));
+        !searchInput.value.trim() ? url.searchParams.delete('term') : url.searchParams.append('term', searchInput.value.trim());
         url.searchParams.delete('page');
         navigateTo(url);
     }, 300);

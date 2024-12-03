@@ -16,7 +16,7 @@ npm or yarn
 ### Steps
 
 1. Clone the repository:
-   git clone https://github.com/your-username/MovieRama.git
+   git clone https://github.com/Armaroth/frontend-MovieRama-Stef_Palaiochoritis.git
    cd MovieRama
 
 2. Install dependencies:

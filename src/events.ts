@@ -26,7 +26,7 @@ export async function handleScroll() {
     if (scrollTimeout) return;
     scrollTimeout = setTimeout(async () => {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-        if (scrollTop + clientHeight >= scrollHeight - 300 && !getIsFetching()) {
+        if (scrollTop + clientHeight >= scrollHeight - 2000 && !getIsFetching()) {
             let location: string = window.location.pathname;
             const route = urlRoutes[location as RouteKeys];
             if (route.fetchMovies) {

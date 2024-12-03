@@ -21,17 +21,12 @@ export function createMovieList(movies: Movies) {
     movieCard.className = 'movie-card';
     movieCard.setAttribute('data-movie-id', movie.id.toString());
     movieCard.innerHTML = createMovieCard(movie);
-    //adds the expand handlers on each movie-card 
-    movieCard.addEventListener('click', () => {
-      handleExpandedMovie(movieCard)
-    });
-    movieList.appendChild(movieCard)
-
+    movieList.appendChild(movieCard);
   });
+  movieList.querySelectorAll('.movie-card').forEach
+    (b => b.addEventListener('click', () => handleExpandedMovie(b)));
   return movieList;
 }
-
-
 
 //shows the movie details of a movie-card
 export function renderExpandMovie(movie: ExpandedMovie) {

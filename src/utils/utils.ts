@@ -61,7 +61,7 @@ export async function handleExpandedMovie(movieCard: Element) {
   });
   ;
 }
-//renders the page heaind depending on the content given
+//renders the page heading section depending on the content given
 export function renderHeading(content: string): void {
   const headerSection = document.getElementById('header');
   if (!headerSection) {

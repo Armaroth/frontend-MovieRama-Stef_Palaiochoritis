@@ -1,7 +1,8 @@
-import { ExpandedMovieSchema, GenresSchema, MoviesSchema } from "./valibot.js";
 import * as v from 'valibot'
+import { ExpandedMovieSchema, GenresSchema, MoviesSchema } from "./valibot.js";
 import { ExpandedMovie, Genres, Movies } from "../utils/typings.js";
 import { renderLoadingScreen } from "../utils/views.js";
+import { extractCurrentPage, extractSearchTerm } from '../utils/utils.js';
 const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const TMDB_BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 export const genres: Genres = await (async function fetchGenres() {
@@ -16,10 +17,11 @@ export const genres: Genres = await (async function fetchGenres() {
         return []
     };
 })();
-export async function fetchNowPlaying(page: number): Promise<Movies> {
+export async function fetchNowPlaying(): Promise<Movies> {
+    const currentPage = extractCurrentPage();
     try {
         renderLoadingScreen(true);
-        const response = await fetch(`${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${page}`);
+        const response = await fetch(`${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${currentPage}`);
         const data = await response.json();
         const { success, output: movies } = v.safeParse(MoviesSchema, data.results);
         if (success) {
@@ -32,28 +34,25 @@ export async function fetchNowPlaying(page: number): Promise<Movies> {
         renderLoadingScreen(false);
     }
 }
-export async function fetchSearchResults(page: number): Promise<Movies> {
-    const inputComponent = document.getElementById('search') as HTMLInputElement;
-    const query: string = inputComponent.value;
+export async function fetchSearchResults(): Promise<Movies> {
+    const currentPage = extractCurrentPage();
+    const query = extractSearchTerm();
     try {
         renderLoadingScreen(true);
-        const response = await fetch(`${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&page=${page}`);
+        const response = await fetch(`${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&page=${currentPage}`);
         const data = await response.json();
         const { success, output: movies } = v.safeParse(MoviesSchema, data.results);
         if (success) {
             return movies;
 
         }
-
         return [];
-
     } catch (error) {
         throw new Error('Error fetching data from TMDB:');
     } finally {
         renderLoadingScreen(false);
     }
 }
-
 export async function fetchMovieDetails(movieId: string | number): Promise<ExpandedMovie | null> {
     try {
         const response = await fetch(`${TMDB_BASE_URL}/movie/${movieId}?api_key=${TMDB_API_KEY}&append_to_response=videos,reviews,similar`);

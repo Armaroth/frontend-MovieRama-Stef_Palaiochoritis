@@ -1,6 +1,7 @@
 const urlPageTitle = "MovieRama";
 import { fetchNowPlaying, fetchSearchResults } from "../api/tmdb-api";
 import { UrlRoutes } from "./typings";
+import { extractSearchTerm } from "./utils";
 export const urlRoutes: UrlRoutes = {
     '/': {
         renderHeading: () => {
@@ -9,16 +10,16 @@ export const urlRoutes: UrlRoutes = {
                 throw new Error('App is not properly Rendered. Cannot find header Section')
             }
             headerSection.innerHTML = `
-            <h1>Now in theaters:</h1>
+            <h1>Now in theaters: </h1>
             `},
         title: "Home | " + urlPageTitle,
         description: '',
         fetchMovies: fetchNowPlaying
     },
     '/search': {
-        renderHeading: (query) => {
+        renderHeading: () => {
+            const query = extractSearchTerm();
             const headerSection = document.getElementById('header');
-
             if (!headerSection) {
                 throw new Error('App is not properly Rendered. Cannot find header Section')
             }
@@ -28,7 +29,7 @@ export const urlRoutes: UrlRoutes = {
         title: "Search | " + urlPageTitle,
         description: '',
         fetchMovies: fetchSearchResults
-        ,
+
     },
     404: {
         renderHeading: () => {

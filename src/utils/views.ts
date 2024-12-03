@@ -1,14 +1,13 @@
 import { ExpandedMovie, Movie, Movies, Review } from "./typings";
-import { getContentSection, handleExpandedMovie } from "./utils";
-//////////////////
-/////////////////// make the search query appear on the url
+import { extractCurrentPage, getContentSection, handleExpandedMovie } from "./utils";
+
 export function createMovieList(movies: Movies) {
   let movieList = document.querySelector('.movie-list');
   if (!movieList) {
     movieList = document.createElement('search');
     movieList.classList.add('movie-list');
   }
-  if (movies.length === 0) {
+  if (movies.length === 0 && +extractCurrentPage() === 1) {
     movieList.innerHTML = `
     <h3>
     Cannot find the movie you are looking for
@@ -29,7 +28,6 @@ export function createMovieList(movies: Movies) {
     }));
   return movieList;
 }
-
 export function renderExpandMovie(movie: ExpandedMovie) {
   const movieCard = document.querySelector(`[data-movie-id="${movie.id}"]`);
   if (!movieCard) throw new Error('movie card does not exist');

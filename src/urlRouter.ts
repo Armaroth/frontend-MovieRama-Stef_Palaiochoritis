@@ -1,32 +1,30 @@
+import { setIsFetching } from "./state.js";
 import { urlRoutes } from "./utils/route.js";
 import { RouteKeys } from "./utils/typings.js";
-import { renderPage } from "./utils/utils.js";
+import { extractCurrentPage, loadMoviesPage, patchSearchInput, renderPage, resetPageParam } from "./utils/utils.js";
 
 async function urlLocationHandler() {
+    const page = extractCurrentPage();
     let location: string | 404 = window.location.pathname in urlRoutes ? window.location.pathname : 404
     const route = urlRoutes[location as RouteKeys];
     route.renderHeading();
     document.title = route.title;
     document.querySelector('meta[name="description"]')?.setAttribute('content', route.description);
     if (route.fetchMovies) {
-        const movies = await route.fetchMovies(1);
-        await renderPage(movies);
+        setIsFetching(true);
+        const movies = await route.fetchMovies();
+        page === '1' ? renderPage(movies) : loadMoviesPage(movies);
     }
-
-    // if (location === '/search') {
-    //     const searchInput = document.getElementById('search') as HTMLInputElement;
-    //     if (!searchInput.value) {
-    //         setCurrentRoute('/');
-    //         navigateTo('/');
-    //         return;
-    //     }
-    // }
-
 }
-export function navigateTo(path: string) {
+export function navigateTo(path: URL) {
     window.history.pushState({}, '', path);
     urlLocationHandler();
 }
 
-await urlLocationHandler()
-window.onpopstate = urlLocationHandler;
+(async () => {
+    resetPageParam();
+    patchSearchInput();
+    window.scrollTo({ top: 0 });
+    window.onpopstate = urlLocationHandler;
+    await urlLocationHandler();
+})();

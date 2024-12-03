@@ -1,26 +1,20 @@
 import { urlRoutes } from "./utils/route";
-import { getCurrentPage, getCurrentRoute, getIsFetching, setCurrentRoute, setIsFetching } from "./state";
+import { getIsFetching, setIsFetching } from "./state";
 import { navigateTo } from "./urlRouter";
-import { loadMoviesPage, resetHtml } from "./utils/utils";
+import { extractCurrentPage, loadMoviesPage, resetHtml } from "./utils/utils";
+import { RouteKeys } from "./utils/typings";
+
 const searchInput = document.getElementById('search') as HTMLInputElement;
 let debounceTimeout: ReturnType<typeof setTimeout>;
 searchInput.addEventListener('input', (event: Event) => {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(async () => {
-        const route = getCurrentRoute();
-        if (!searchInput.value.trim() && route !== '/search') return;
         resetHtml();
         scrollTo(0, 0);
-        if (searchInput.value) {
-            setCurrentRoute('/search');
-            navigateTo('/search');
-        }
-        else {
-            if (route !== '/') {
-                setCurrentRoute('/');
-                navigateTo('/');
-            }
-        }
+        const url = new URL(window.location.origin + (searchInput.value ? '/search' : ''));
+        !searchInput.value ? url.searchParams.delete('term') : url.searchParams.append('term', searchInput.value);
+        url.searchParams.delete('page');
+        navigateTo(url);
     }, 300);
 });
 window.addEventListener("scroll", handleScroll);
@@ -29,19 +23,21 @@ export async function handleScroll() {
     if (scrollTimeout) return;
     scrollTimeout = setTimeout(async () => {
         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-        if (scrollTop + clientHeight >= scrollHeight - 2000 && !getIsFetching()) {
-            const page = getCurrentPage();
-            const route = getCurrentRoute();
-            setIsFetching(true);
-            if (urlRoutes[route].fetchMovies) {
-                const movies = await urlRoutes[route].fetchMovies(page);
-                setIsFetching(false);
+        if (scrollTop + clientHeight >= scrollHeight - 300 && !getIsFetching()) {
+            let location: string = window.location.pathname;
+            const route = urlRoutes[location as RouteKeys];
+            if (route.fetchMovies) {
+                const pagestr = extractCurrentPage();
+                const page = Number(pagestr) + 1;
+                const url = URL.parse(window.location.href) as URL;
+                url?.searchParams.set('page', page.toString());
+                setIsFetching(true);
+                const movies = await route.fetchMovies();
                 if (!movies.length) {
                     return;
                 }
-                await loadMoviesPage(movies);
+                navigateTo(url);
             }
-            setIsFetching(false);
         }
-    }, 400);
+    }, 1000);
 }

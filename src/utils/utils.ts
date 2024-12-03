@@ -1,12 +1,38 @@
 import { fetchMovieDetails } from "../api/tmdb-api";
+import { setIsFetching } from "../state";
+import { navigateTo } from "../urlRouter";
 import { Movies } from "./typings";
 import { createMovieList, renderExpandMovie } from "./views";
-export function getContentSection(): HTMLElement {
-  const contentSec = document.getElementById('content');
-  if (!contentSec) throw new Error('The app is not mounted properly. Cannot find the #content section');
-  return contentSec;
-}
 
+export function loadMoviesPage(movies: Movies) {
+
+  const contentSection = getContentSection();
+  const movieListHtml = createMovieList(movies);
+  contentSection.appendChild(movieListHtml);
+  setIsFetching(false);
+}
+export function extractCurrentPage(): string {
+  const url = URL.parse(window.location.href) as URL;
+  return url.searchParams.get('page') || '1';
+}
+export function extractSearchTerm(): string {
+  const url = URL.parse(window.location.href) as URL;
+  return url.searchParams.get('term') || '';
+
+}
+export function resetPageParam() {
+  const url = URL.parse(window.location.origin) as URL;
+  url.searchParams.delete('page');
+  url.searchParams.delete('term');
+  window.history.pushState({}, '', url);
+}
+export function patchSearchInput() {
+  const searchInput = document.querySelector('input') as HTMLInputElement
+  if (!searchInput.value) {
+    const url = URL.parse(window.location.href) as URL;
+    navigateTo(url);
+  }
+}
 export async function handleExpandedMovie(movieCard: Element) {
   if (movieCard?.classList.contains('expanded')) {
     movieCard.querySelector('.details')?.remove();
@@ -30,6 +56,8 @@ export async function handleExpandedMovie(movieCard: Element) {
   movieCard.querySelector('iframe')?.scrollIntoView({ behavior: 'smooth' });
 }
 
+
+
 export function renderHeading(content: string): void {
   const headerSection = document.getElementById('header');
   if (!headerSection) {
@@ -37,16 +65,16 @@ export function renderHeading(content: string): void {
   }
   headerSection.innerHTML = content;
 }
-export async function renderPage(movies: Movies) {
+export function renderPage(movies: Movies) {
   resetHtml();
-  await loadMoviesPage(movies);
-}
-export async function loadMoviesPage(movies: Movies) {
-  const contentSection = getContentSection();
-  const movieListHtml = createMovieList(movies);
-  contentSection.appendChild(movieListHtml);
+  loadMoviesPage(movies);
 }
 
+export function getContentSection(): HTMLElement {
+  const contentSec = document.getElementById('content');
+  if (!contentSec) throw new Error('The app is not mounted properly. Cannot find the #content section');
+  return contentSec;
+}
 export function resetHtml() {
   const contentSec = getContentSection();
   contentSec.replaceChildren();

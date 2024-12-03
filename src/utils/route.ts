@@ -31,16 +31,16 @@ export const urlRoutes: UrlRoutes = {
         fetchMovies: fetchSearchResults
 
     },
-    404: {
-        renderHeading: () => {
-            const headerSection = document.getElementById('header');
-            if (!headerSection) {
-                throw new Error('App is not properly Rendered. Cannot find header Section')
-            }
-            headerSection.innerHTML = `
-                        <h1>Page not found:</h1>
-                    `},
-        title: "404 | " + urlPageTitle,
-        description: "Page not found",
-    },
+    // 404: {
+    //     renderHeading: () => {
+    //         const headerSection = document.getElementById('header');
+    //         if (!headerSection) {
+    //             throw new Error('App is not properly Rendered. Cannot find header Section')
+    //         }
+    //         headerSection.innerHTML = `
+    //                     <h1>Page not found:</h1>
+    //                 `},
+    //     title: "404 | " + urlPageTitle,
+    //     description: "Page not found",
+    // },
 };

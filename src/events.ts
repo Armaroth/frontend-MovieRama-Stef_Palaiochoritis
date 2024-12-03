@@ -1,7 +1,7 @@
 import { urlRoutes } from "./utils/route";
 import { getIsFetching, setIsFetching } from "./state";
 import { navigateTo } from "./urlRouter";
-import { extractCurrentPage, loadMoviesPage, resetHtml } from "./utils/utils";
+import { extractCurrentPage, resetHtml } from "./utils/utils";
 import { RouteKeys } from "./utils/typings";
 
 const searchInput = document.getElementById('search') as HTMLInputElement;

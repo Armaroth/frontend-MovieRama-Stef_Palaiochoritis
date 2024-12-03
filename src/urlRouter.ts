@@ -5,7 +5,7 @@ import { extractCurrentPage, loadMoviesPage, patchSearchInput, renderPage, reset
 
 async function urlLocationHandler() {
     const page = extractCurrentPage();
-    let location: string | 404 = window.location.pathname in urlRoutes ? window.location.pathname : 404
+    let location: string = window.location.pathname
     const route = urlRoutes[location as RouteKeys];
     route.renderHeading();
     document.title = route.title;

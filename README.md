@@ -32,7 +32,7 @@ npm or yarn
 1.  Start the development server:
     npm run dev
 2.  Open your browser and navigate to:
-    http://localhost:5175/
+    http://localhost:5173/
 
 # Technologies Used
 

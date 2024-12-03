@@ -4,8 +4,7 @@
 
 This is a repository for a "MovieRama" app that was given as an assesment from Workable
 
-### MovieRama is a web application that fetches and displays movie data from The Movie Database (TMDB) API. The app allows users to view movies currently playing in theaters, search for a specific movie, and see detailed information about individual movies, including related videos, reviews, and similar movies.
-
+### MovieRama is a web application that fetches and displays movie data from The Movie Database (TMDB) API. The app allows users to view movies currently playing in theaters, search for a specific movie, fetch the next movies page using infinite scrolling and see detailed information about individual movies, including related videos, reviews, and similar movies.
 ## Installation
 
 ### Prerequisites

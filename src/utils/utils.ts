@@ -26,13 +26,6 @@ export function resetPageParam() {
   url.searchParams.delete('term');
   window.history.pushState({}, '', url);
 }
-export function patchSearchInput() {
-  const searchInput = document.querySelector('input') as HTMLInputElement
-  if (!searchInput.value) {
-    const url = URL.parse(window.location.href) as URL;
-    navigateTo(url);
-  }
-}
 export async function handleExpandedMovie(movieCard: Element) {
   if (movieCard?.classList.contains('expanded')) {
     movieCard.querySelector('.details')?.remove();

@@ -1,7 +1,7 @@
 import { setIsFetching } from "./state.js";
 import { urlRoutes } from "./utils/route.js";
 import { RouteKeys } from "./utils/typings.js";
-import { extractCurrentPage, loadMoviesPage, patchSearchInput, renderPage, resetPageParam } from "./utils/utils.js";
+import { extractCurrentPage, loadMoviesPage, renderPage, resetPageParam } from "./utils/utils.js";
 
 async function urlLocationHandler() {
     const page = extractCurrentPage();
@@ -22,8 +22,8 @@ export function navigateTo(path: URL) {
 }
 
 (async () => {
-    patchSearchInput();
     window.scrollTo({ top: 0 });
     window.onpopstate = urlLocationHandler;
     resetPageParam();
+    urlLocationHandler();
 })();

@@ -41,8 +41,8 @@
 
     iframe {
       align-self: center;
-      width: 75%;
-      height: calc(70vw * 9 / 16); /* Maintain 16:9 aspect ratio */
+      width: 80%;
+      height: calc(60vw * 9 / 16); /* Maintain 16:9 aspect ratio */
     }
 
     .review {
@@ -195,7 +195,6 @@ img.thumbnail {
         height: 200px;
       }
     }
- 
   }
   .movie-list .movie-card {
     flex-direction: column;

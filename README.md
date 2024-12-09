@@ -19,7 +19,7 @@ npm or yarn
 
 3. Create a .env file at the root of your project and add your TMDB API key and base URL
 
-- VITE_TMDB_API_KEY = 'bc50218d91157b1ba4f142ef7baaa6a0' as provided in the assignment .
+- VITE_TMDB_API_KEY = Your the movie database api key [tmdb-api](https://developer.themoviedb.org/reference/intro/getting-started)
 - VITE_TMDB_BASE_URL = 'https://api.themoviedb.org/3' .
 
 ## Usage
